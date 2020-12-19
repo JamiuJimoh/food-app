@@ -28,6 +28,6 @@ const kOnboardBottomButtonGradient = LinearGradient(
 );
 
 const kScaffoldColor = Color(0xFF111328);
-const kAccentColor = Color(0xFFFC8986);
+const kAccentColor = Color(0xFFE55350);
 const kAccentColor2 = Color(0xFFFED946);
 const kTextColor = Color(0xFFE0E0E0);

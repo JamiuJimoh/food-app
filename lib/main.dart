@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/data/data.dart';
 
-import 'components/onboarding.dart';
+import 'app_theme.dart';
+import 'screens/screens.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,18 +9,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'App Onboarding',
-      home: Home(),
+      title: 'Food delivery app',
+      theme: AppTheme.primaryAppTheme,
       debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Onboarding(),
+      initialRoute: Onboarding.id,
+      routes: {
+        Onboarding.id: (context) => Onboarding(),
+        LoginScreen.id: (context) => LoginScreen(),
+      },
     );
   }
 }

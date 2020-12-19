@@ -1,12 +1,13 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_outlined_button.dart';
+import '../widgets/widgets.dart';
+import 'screens.dart';
 import '../constants.dart';
-import '../data/data.dart';
-import '../widgets/slider_tile.dart';
+import '../data/onboarding_data.dart';
 
 class Onboarding extends StatefulWidget {
+  static const String id = 'onboarding_screen';
+
   @override
   _OnboardingState createState() => _OnboardingState();
 }
@@ -19,7 +20,7 @@ class _OnboardingState extends State<Onboarding> {
   Widget bottomSheetDisplay() {
     if (currentIndex != slides.length - 1) {
       return Container(
-        padding: EdgeInsets.only(bottom: 60.0, top: 10.0),
+        padding: EdgeInsets.only(bottom: 30.0, top: 10.0),
         color: kScaffoldColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -56,17 +57,13 @@ class _OnboardingState extends State<Onboarding> {
         ),
       );
     } else {
-      return Container(
-        child: Text(
-          'Get Started',
-          style: kTitleTextStyle,
-        ),
-        alignment: Alignment.center,
-        height: Platform.isIOS ? 70 : 60,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          gradient: kOnboardBottomButtonGradient,
-        ),
+      return GradientButton(
+        context: context,
+        label: 'Get Started',
+        isCurved: false,
+        onTap: () {
+          Navigator.pushNamed(context, LoginScreen.id);
+        },
       );
     }
   }
