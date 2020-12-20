@@ -12,10 +12,11 @@ class MyApp extends StatelessWidget {
       title: 'Food delivery app',
       theme: AppTheme.primaryAppTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: Onboarding.id,
+      initialRoute: OnboardingScreen.id,
       routes: {
-        Onboarding.id: (context) => Onboarding(),
+        OnboardingScreen.id: (context) => OnboardingScreen(),
         LoginScreen.id: (context) => LoginScreen(),
+        SignupScreen.id: (context) => SignupScreen(),
       },
     );
   }

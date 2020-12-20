@@ -5,15 +5,15 @@ import '../constants.dart';
 class CustomTextField extends StatelessWidget {
   final String label;
   final TextInputType textInputType;
-  final bool isPassword;
+  final bool isPasswordInputField;
 
   const CustomTextField({
     @required this.label,
     @required this.textInputType,
-    @required this.isPassword,
+    @required this.isPasswordInputField,
   });
 
-  OutlineInputBorder outlineInputBorder(Color color) {
+  OutlineInputBorder _outlineInputBorder(Color color) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(50.0),
@@ -29,17 +29,17 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         keyboardType: textInputType,
         decoration: InputDecoration(
-          enabledBorder: outlineInputBorder(kAccentColor),
+          enabledBorder: _outlineInputBorder(kAccentColor),
           contentPadding: const EdgeInsets.fromLTRB(20, 20, 12, 17),
           hintText: label,
           hintStyle: kDescTextStyle.copyWith(
             color: Colors.grey[500],
             fontSize: 17.0,
           ),
-          focusedBorder: outlineInputBorder(kAccentColor2),
+          focusedBorder: _outlineInputBorder(kAccentColor2),
         ),
         style: kDescTextStyle,
-        obscureText: isPassword,
+        obscureText: isPasswordInputField,
         cursorColor: kAccentColor2,
       ),
     );

@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/data/onboarding_data.dart';
 
 import '../widgets/widgets.dart';
 import 'screens.dart';
 import '../constants.dart';
-import '../data/onboarding_data.dart';
+import '../models/slider_model.dart';
 
-class Onboarding extends StatefulWidget {
+class OnboardingScreen extends StatefulWidget {
   static const String id = 'onboarding_screen';
 
   @override
   _OnboardingState createState() => _OnboardingState();
 }
 
-class _OnboardingState extends State<Onboarding> {
-  List<SliderModel> slides = List<SliderModel>();
-  int currentIndex = 0;
+class _OnboardingState extends State<OnboardingScreen> {
+  List<SliderModel> _slides = [];
+  Onboarding _onboarding = Onboarding();
+  int _currentIndex = 0;
   PageController pageController = PageController(initialPage: 0);
 
+  @override
+  void initState() {
+    super.initState();
+    _slides = _onboarding.getSlides();
+  }
+
   Widget bottomSheetDisplay() {
-    if (currentIndex != slides.length - 1) {
+    if (_currentIndex != _slides.length - 1) {
       return Container(
         padding: EdgeInsets.only(bottom: 30.0, top: 10.0),
         color: kScaffoldColor,
@@ -28,7 +36,7 @@ class _OnboardingState extends State<Onboarding> {
             CustomOutlinedButton(
               onTap: () {
                 pageController.animateToPage(
-                  slides.length - 1,
+                  _slides.length - 1,
                   duration: Duration(milliseconds: 400),
                   curve: Curves.linear,
                 );
@@ -37,8 +45,8 @@ class _OnboardingState extends State<Onboarding> {
             ),
             Row(
               children: <Widget>[
-                for (int i = 0; i < slides.length; i++)
-                  currentIndex == i
+                for (int i = 0; i < _slides.length; i++)
+                  _currentIndex == i
                       ? pageIndexIndicator(true)
                       : pageIndexIndicator(false)
               ],
@@ -46,7 +54,7 @@ class _OnboardingState extends State<Onboarding> {
             CustomOutlinedButton(
               onTap: () {
                 pageController.animateToPage(
-                  currentIndex + 1,
+                  _currentIndex + 1,
                   duration: Duration(milliseconds: 400),
                   curve: Curves.linear,
                 );
@@ -81,28 +89,21 @@ class _OnboardingState extends State<Onboarding> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    slides = getSlides();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
         controller: pageController,
-        itemCount: slides.length,
+        itemCount: _slides.length,
         onPageChanged: (value) {
           setState(() {
-            currentIndex = value;
+            _currentIndex = value;
           });
         },
         itemBuilder: (context, index) {
           return SliderTile(
-            imageName: slides[index].getImageAssetPath(),
-            title: slides[index].getTitle(),
-            desc: slides[index].getDesc(),
+            imageName: _onboarding.getImageAssetPath(index),
+            title: _onboarding.getTitle(index),
+            desc: _onboarding.getDesc(index),
           );
         },
       ),

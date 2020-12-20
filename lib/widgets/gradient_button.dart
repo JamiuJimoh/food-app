@@ -7,6 +7,7 @@ class GradientButton extends StatelessWidget {
   final String label;
   final Function onTap;
   final bool isCurved;
+  final BuildContext context;
 
   const GradientButton({
     @required this.context,
@@ -15,9 +16,7 @@ class GradientButton extends StatelessWidget {
     @required this.isCurved,
   });
 
-  final BuildContext context;
-
-  BorderRadius borderRadius(bool isCurved) {
+  BorderRadius _borderRadius(bool isCurved) {
     if (isCurved) {
       return BorderRadius.all(
         Radius.circular(50.0),
@@ -41,7 +40,7 @@ class GradientButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           gradient: kOnboardBottomButtonGradient,
-          borderRadius: borderRadius(isCurved),
+          borderRadius: _borderRadius(isCurved),
         ),
       ),
     );
