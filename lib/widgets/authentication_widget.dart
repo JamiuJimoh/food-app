@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -32,46 +31,51 @@ class AuthenticationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              titleMessage,
-              style: kTitleTextStyle.copyWith(fontWeight: FontWeight.w400),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20.0),
-            _createCustomTextField(customTextField),
-            const SizedBox(height: 40.0),
-            GradientButton(
-              context: context,
-              label: label,
-              isCurved: true,
-              onTap: onButtonClicked,
-            ),
-            const SizedBox(height: 20.0),
-            GestureDetector(
-              onTap: onBottomLinkClicked,
-              child: Text.rich(
-                TextSpan(
-                  text: bottomMessage,
-                  style: kDescTextStyle,
-                  children: <InlineSpan>[
-                    WidgetSpan(
-                        child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 10),
-                    )),
-                    TextSpan(
-                      text: bottomMessageLink,
-                      style: kDescTextStyle.copyWith(color: kAccentColor),
-                    ),
-                  ],
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 25.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                titleMessage,
+                style: kTitleTextStyle.copyWith(fontWeight: FontWeight.w400),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20.0),
+              _createCustomTextField(customTextField),
+              const SizedBox(height: 40.0),
+              GradientButton(
+                context: context,
+                label: label,
+                isCurved: true,
+                onTap: onButtonClicked,
+              ),
+              const SizedBox(height: 20.0),
+              GestureDetector(
+                onTap: onBottomLinkClicked,
+                child: Text.rich(
+                  TextSpan(
+                    text: bottomMessage,
+                    style: kDescTextStyle,
+                    children: <InlineSpan>[
+                      WidgetSpan(
+                          child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 10),
+                      )),
+                      TextSpan(
+                        text: bottomMessageLink,
+                        style: kDescTextStyle.copyWith(color: kAccentColor),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
         keyboardType: textInputType,
         decoration: InputDecoration(
           enabledBorder: _outlineInputBorder(kAccentColor),
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 12, 17),
+          contentPadding: const EdgeInsets.fromLTRB(20, 16, 12, 16),
           hintText: label,
           hintStyle: kDescTextStyle.copyWith(
             color: Colors.grey[500],
