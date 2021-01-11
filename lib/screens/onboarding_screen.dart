@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/data/onboarding_data.dart';
 
+import '../data/data.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
 import '../constants.dart';
@@ -15,7 +15,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingState extends State<OnboardingScreen> {
   List<SliderModel> _slides = [];
-  Onboarding _onboarding = Onboarding();
+  OnboardingData _onboarding = OnboardingData();
   int _currentIndex = 0;
   PageController pageController = PageController(initialPage: 0);
 

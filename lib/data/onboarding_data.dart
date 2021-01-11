@@ -1,6 +1,6 @@
 import '../models/slider_model.dart';
 
-class Onboarding {
+class OnboardingData {
   List<SliderModel> _slidesData = [
     SliderModel(
       imagePath: 'assets/images/fruits2.jpg',
@@ -22,7 +22,7 @@ class Onboarding {
   ];
 
   List<SliderModel> getSlides() {
-    return _slidesData;
+    return [..._slidesData];
   }
 
   String getImageAssetPath(int index) {
