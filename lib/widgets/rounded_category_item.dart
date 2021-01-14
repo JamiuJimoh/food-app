@@ -16,16 +16,16 @@ class RoundedCatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+      padding: const EdgeInsets.symmetric(horizontal: 19.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleAvatar(
-            radius: 35.0,
+            radius: 27.0,
             backgroundImage: AssetImage(imageUrl),
           ),
           const SizedBox(height: 10.0),
-          Text(title, style: kDescTextStyle),
+          Text(title, style: kBodyTextStyle),
         ],
       ),
     );

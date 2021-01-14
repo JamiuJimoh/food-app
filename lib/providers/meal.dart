@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-class Meal {
+class Meal with ChangeNotifier {
   final String id;
   final String title;
   final String description;
   final double price;
   final String imageUrl;
   final double ratings;
-  final int timeToPrep;
+  final DateTime timeToPrep;
   final Map<String, Object> vendorInfo;
   bool isFavorite;
 
@@ -22,4 +23,9 @@ class Meal {
     @required this.vendorInfo,
     this.isFavorite = false,
   });
+
+  void toggleFavoriteStatus() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 }

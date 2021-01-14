@@ -9,6 +9,18 @@ const kDescTextStyle = TextStyle(
   fontSize: 20.0,
   color: kTextColor,
 );
+const kBodyTextStyle = TextStyle(
+  fontSize: 15.0,
+  color: kTextColor,
+);
+const kSubtitleTextStyle = TextStyle(
+  fontSize: 13.0,
+  color: kTextColor,
+);
+const kPriceTextStyle = TextStyle(
+  fontSize: 20.0,
+  color: kAccentColor,
+);
 const kOnboardButtonTextStyle = TextStyle(
   fontSize: 20.0,
   color: Colors.white,
@@ -28,6 +40,7 @@ const kOnboardBottomButtonGradient = LinearGradient(
 );
 
 const kScaffoldColor = Color(0xFF111328);
+const kSecondaryColor = Color(0xFF1D1E33);
 const kAccentColor = Color(0xFFE55350);
 const kAccentColor2 = Color(0xFFFED946);
 const kTextColor = Color(0xFFE0E0E0);

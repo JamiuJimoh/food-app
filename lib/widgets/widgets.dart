@@ -4,4 +4,5 @@ export 'slider_tile.dart';
 export 'gradient_button.dart';
 export 'authentication_widget.dart';
 export 'meal_item_card.dart';
-export 'rounded_cart_item.dart';
+export 'rounded_category_item.dart';
+export 'meals_list_builder.dart';
