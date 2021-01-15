@@ -39,8 +39,10 @@ const kOnboardBottomButtonGradient = LinearGradient(
   end: Alignment.bottomRight,
 );
 
-const kScaffoldColor = Color(0xFF111328);
+const kScaffoldColor = Color(0xCC111328);
 const kSecondaryColor = Color(0xFF1D1E33);
+// const kSecondaryColor = Color(0xFF1D1E33);
 const kAccentColor = Color(0xFFE55350);
 const kAccentColor2 = Color(0xFFFED946);
+const kAccentColor3 = Color(0xFFFF975D);
 const kTextColor = Color(0xFFE0E0E0);

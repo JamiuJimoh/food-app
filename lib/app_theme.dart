@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'constants.dart';
+
 class AppTheme {
   AppTheme._();
 
-  static const Color _primaryColor = Color(0xFF111328);
-  static const Color _secondaryColor = Color(0xFF1D1E33);
-  static const Color _iconColor = Color(0xFFE55350);
-  static const Color _accentColor = Color(0xFFFED946);
-  static const Color _textColor = Color(0xFFE0E0E0);
+  static const Color _primaryColor = kScaffoldColor;
+  static const Color _secondaryColor = kSecondaryColor;
+  static const Color _iconColor = kAccentColor;
+  static const Color _accentColor = kAccentColor2;
+  static const Color _textColor = kTextColor;
 
   static final ThemeData primaryAppTheme = ThemeData(
     scaffoldBackgroundColor: _primaryColor,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/constants.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import '../providers/meals.dart';
 import '../data/categories_data.dart';
 import '../widgets/widgets.dart';
@@ -44,16 +44,7 @@ class MealsOverviewScreen extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: Container(
                 height: 90.0,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categoriesData.catListLength,
-                  itemBuilder: (ctx, i) {
-                    return RoundedCatItem(
-                      title: categoriesData.categoriesList[i].title,
-                      imageUrl: categoriesData.categoriesList[i].imageUrl,
-                    );
-                  },
-                ),
+                child: CategoriesListBuilder(),
               ),
             ),
           ),

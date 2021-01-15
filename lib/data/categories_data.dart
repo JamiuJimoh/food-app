@@ -1,39 +1,45 @@
-import '../models/categories.dart';
+import '../providers/category.dart';
 
 class CategoriesData {
-  final List<Categories> _categoriesList = [
-    Categories(
+  final List<Category> _categoriesList = [
+    Category(
       id: 'c1',
       title: 'Breakfast',
       imageUrl: 'assets/images/eggs.jpg',
     ),
-    Categories(
+    Category(
       id: 'c2',
       title: 'Lunch',
       imageUrl: 'assets/images/fruits.jpg',
     ),
-    Categories(
+    Category(
       id: 'c3',
       title: 'Dinner',
       imageUrl: 'assets/images/sandwich.jpg',
     ),
-    Categories(
+    Category(
       id: 'c4',
       title: 'Vegan',
       imageUrl: 'assets/images/veggies.jpg',
     ),
-    Categories(
-      id: 'c4',
+    Category(
+      id: 'c5',
       title: 'Halal',
-      imageUrl: 'assets/images/fruits.jpg',
+      imageUrl: 'assets/images/fruits2.jpg',
+    ),
+    Category(
+      id: 'c6',
+      title: 'Bakery',
+      imageUrl: 'assets/images/burger.jpg',
+    ),
+    Category(
+      id: 'c7',
+      title: 'Family Meals',
+      imageUrl: 'assets/images/fruits3.jpg',
     ),
   ];
 
-  List<Categories> get categoriesList {
+  List<Category> get categoriesList {
     return [..._categoriesList];
-  }
-
-  int get catListLength{
-    return _categoriesList.length;
   }
 }
