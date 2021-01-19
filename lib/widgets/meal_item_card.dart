@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/meal.dart';
 import '../screens/meal_detail_screen.dart';
 import '../constants.dart';
+import 'rounded_icon_button.dart';
 
 class MealItemCard extends StatelessWidget {
   // final String id;
@@ -12,6 +13,7 @@ class MealItemCard extends StatelessWidget {
   // final double price;
   // final DateTime timeToPrep;
   // final double ratings;
+  bool isPopular;
   final double imageContainerHeight;
 
   MealItemCard({
@@ -21,6 +23,7 @@ class MealItemCard extends StatelessWidget {
     // @required this.price,
     // @required this.timeToPrep,
     // @required this.ratings,
+    @required this.isPopular,
     this.imageContainerHeight,
   });
 
@@ -30,7 +33,7 @@ class MealItemCard extends StatelessWidget {
 
     return Container(
       height: imageContainerHeight,
-      width: 200.0,
+      width: 300.0,
       child: InkWell(
         onTap: () {
           print(meal.id);
@@ -44,47 +47,40 @@ class MealItemCard extends StatelessWidget {
           elevation: 3.0,
           child: Column(
             children: [
-              Expanded(
+              Flexible(
                 flex: 4,
                 child: Container(
                   child: Stack(
                     children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              meal.imageUrl,
+                      Hero(
+                        tag: isPopular? 'popular${meal.id}':meal.id,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                meal.imageUrl,
+                              ),
+                              fit: BoxFit.cover,
                             ),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
                           ),
                         ),
                       ),
                       Positioned(
                         right: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              meal.toggleFavoriteStatus();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: kSecondaryColor,
-                                shape: BoxShape.circle,
-                              ),
-                              padding: const EdgeInsets.all(7.0),
-                              child: Consumer<Meal>(
-                                builder: (ctx, meal, child) => Icon(
-                                  meal.isFavorite
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  size: 27.0,
-                                ),
-                              ),
+                        child: RoundedIconButton(
+                          childWidget: Consumer<Meal>(
+                            builder: (ctx, meal, child) => IconButton(
+                              icon: Icon(meal.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border),
+                              // size: 27.0,
+                              onPressed: () {
+                                meal.toggleFavoriteStatus();
+                              },
                             ),
                           ),
                         ),
@@ -93,8 +89,9 @@ class MealItemCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
+              Flexible(
                 flex: 2,
+                fit: FlexFit.tight,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 7.0, horizontal: 15.0),

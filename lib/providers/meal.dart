@@ -9,6 +9,7 @@ class Meal with ChangeNotifier {
   final double price;
   final String imageUrl;
   final double ratings;
+  final int reviews;
   final int timeToPrep;
   final Map<String, Object> vendorInfo;
   bool isFavorite;
@@ -21,6 +22,7 @@ class Meal with ChangeNotifier {
     @required this.price,
     @required this.imageUrl,
     @required this.ratings,
+    @required this.reviews,
     @required this.timeToPrep,
     @required this.vendorInfo,
     this.isFavorite = false,

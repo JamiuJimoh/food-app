@@ -13,7 +13,7 @@ class _TabsScreenState extends State<TabsScreen> {
   final List<Widget> _pages = [
     MealsOverviewScreen(),
     FavoritesScreen(),
-    ProfileScreen(),
+    OrdersScreen(),
     ProfileScreen(),
   ];
 
@@ -53,11 +53,11 @@ class _TabsScreenState extends State<TabsScreen> {
             label: 'Favorites',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt),
-            label: 'Profile',
+            icon: Icon(Icons.shopping_cart),
+            label: 'Orders',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt),
+            icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],

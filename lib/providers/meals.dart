@@ -15,6 +15,14 @@ class Meals with ChangeNotifier {
     return [..._mealsList];
   }
 
+  List<Meal> get popularMeals {
+    final List<Meal> newMealsList = [..._mealsList];
+    //TODO: create an algorithm to calculate popular meals using reviews and ratings.
+    newMealsList.sort((a, b) => b.reviews.compareTo(a.reviews));
+
+    return newMealsList;
+  }
+
   // void showFavoritesOnly() {
   //   _showFavoritesOnly = true;
   //   notifyListeners();

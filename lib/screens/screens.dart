@@ -7,3 +7,4 @@ export 'tabs_screen.dart';
 export 'favorites_screen.dart';
 export 'profile_screen.dart';
 export 'category_meals_screen.dart';
+export 'orders_screen.dart';

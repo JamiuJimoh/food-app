@@ -6,9 +6,10 @@ const kTitleTextStyle = TextStyle(
   color: Colors.white,
 );
 const kDescTextStyle = TextStyle(
-  fontSize: 20.0,
+  fontSize: 18.0,
   color: kTextColor,
 );
+
 const kBodyTextStyle = TextStyle(
   fontSize: 15.0,
   color: kTextColor,
@@ -39,10 +40,13 @@ const kOnboardBottomButtonGradient = LinearGradient(
   end: Alignment.bottomRight,
 );
 
-const kScaffoldColor = Color(0xCC111328);
-const kSecondaryColor = Color(0xFF1D1E33);
-// const kSecondaryColor = Color(0xFF1D1E33);
 const kAccentColor = Color(0xFFE55350);
 const kAccentColor2 = Color(0xFFFED946);
 const kAccentColor3 = Color(0xFFFF975D);
+const kScaffoldColor = Color(0xCC111328);
+const kSecondaryColor = Color(0xFF1D1E33);
 const kTextColor = Color(0xFFE0E0E0);
+
+// const kTextColor = Color(0xCC111328);
+// const kScaffoldColor = Color(0xFFF0F8FF);
+// const kSecondaryColor = Color(0xFFF0F8FF);

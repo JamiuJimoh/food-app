@@ -14,7 +14,7 @@ class MealsOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context, listen: false);
-    print('meal rebuilds');
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -67,7 +67,10 @@ class MealsOverviewScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: mealsData.mealsListLength,
                       itemBuilder: (ctx, i) {
-                        return MealsListBuilder(index: i);
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: MealsListBuilder(index: i, isPopular: true),
+                        );
                       },
                     ),
                   ),
@@ -92,7 +95,7 @@ class MealsOverviewScreen extends StatelessWidget {
                 (ctx, i) {
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: MealsListBuilder(index: i),
+                    child: MealsListBuilder(index: i, isPopular: false),
                   );
                 },
                 childCount: mealsData.mealsListLength,
