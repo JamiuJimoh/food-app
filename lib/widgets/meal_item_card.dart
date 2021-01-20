@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/meal.dart';
@@ -31,20 +32,18 @@ class MealItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final meal = Provider.of<Meal>(context, listen: false);
 
-    return Container(
-      height: imageContainerHeight,
-      width: 300.0,
-      child: InkWell(
-        onTap: () {
-          print(meal.id);
-          Navigator.of(context).pushNamed(
-            MealDetailScreen.id,
-            arguments: meal.id,
-          );
-        },
-        child: Card(
-          color: kSecondaryColor,
-          elevation: 3.0,
+    return BorderedContainer(
+      childWidget: Container(
+        height: imageContainerHeight,
+        width: 300.0,
+        child: InkWell(
+          onTap: () {
+            print(meal.id);
+            Navigator.of(context).pushNamed(
+              MealDetailScreen.id,
+              arguments: meal.id,
+            );
+          },
           child: Column(
             children: [
               Flexible(
@@ -53,7 +52,7 @@ class MealItemCard extends StatelessWidget {
                   child: Stack(
                     children: <Widget>[
                       Hero(
-                        tag: isPopular? 'popular${meal.id}':meal.id,
+                        tag: isPopular ? 'popular${meal.id}' : meal.id,
                         child: Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -63,8 +62,8 @@ class MealItemCard extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
+                              topLeft: Radius.circular(9.0),
+                              topRight: Radius.circular(9.0),
                             ),
                           ),
                         ),

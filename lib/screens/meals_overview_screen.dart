@@ -3,13 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../providers/meals.dart';
-import '../data/categories_data.dart';
 import '../widgets/widgets.dart';
 
 class MealsOverviewScreen extends StatelessWidget {
   static const String id = 'meals_overview_screen';
-
-  final CategoriesData categoriesData = CategoriesData();
 
   @override
   Widget build(BuildContext context) {
@@ -25,29 +22,7 @@ class MealsOverviewScreen extends StatelessWidget {
             centerTitle: false,
             floating: true,
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(vertical: 18.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 170,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/banner.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(vertical: 18.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 90.0,
-                child: CategoriesListBuilder(),
-              ),
-            ),
-          ),
+          CategoriesSection(),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(18.0),
@@ -108,10 +83,31 @@ class MealsOverviewScreen extends StatelessWidget {
   }
 }
 
-//  ListView.builder(
-//   padding: const EdgeInsets.all(10.0),
-//   itemCount: loadedMeals.length,
-//   itemBuilder: (ctx, i) => MealItemCard(
-//     imageUrl: loadedMeals[i].imageUrl,
-//   ),
-// ),
+class CategoriesSection extends StatefulWidget {
+  @override
+  _CategoriesSectionState createState() => _CategoriesSectionState();
+}
+
+class _CategoriesSectionState extends State<CategoriesSection> {
+  double categorySectionHeight;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final mediaQuery = MediaQuery.of(context);
+    categorySectionHeight=mediaQuery.size.width * 0.28;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          height: categorySectionHeight,
+          child: CategoriesListBuilder(),
+        ),
+      ),
+    );
+  }
+}

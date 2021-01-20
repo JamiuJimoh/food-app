@@ -9,3 +9,4 @@ export 'meals_list_builder.dart';
 export 'categories_list_builder.dart';
 export 'rounded_icon_button.dart';
 export 'img_sliverheader_delegate.dart';
+export 'bordered_container.dart';

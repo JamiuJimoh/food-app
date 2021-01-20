@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/widgets/rounded_category_item.dart';
+import 'package:food_delivery/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/categories.dart';
@@ -16,10 +17,12 @@ class CategoriesListBuilder extends StatelessWidget {
       itemBuilder: (ctx, i) {
         return ChangeNotifierProvider.value(
           value: categories[i],
-          child: RoundedCatItem(
-              // title: categoriesData.categoriesList[i].title,
-              // imageUrl: categoriesData.categoriesList[i].imageUrl,
-              ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: BorderedContainer(
+              childWidget: RoundedCatItem(),
+            ),
+          ),
         );
       },
     );

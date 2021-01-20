@@ -63,21 +63,23 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   ),
                   const SizedBox(height: 10.0),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        Icons.star,
-                        size: 20.0,
-                        color: kAccentColor2,
-                      ),
-                      const SizedBox(width: 5.0),
-                      Text('${loadedMeal.ratings}', style: kBodyTextStyle),
-                      const SizedBox(width: 5.0),
-                      Text(
-                        '(${loadedMeal.reviews} reviews)',
-                        style: kBodyTextStyle,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 240.0,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            size: 20.0,
+                            color: kAccentColor2,
+                          ),
+                          const SizedBox(width: 1.5),
+                          Text('${loadedMeal.ratings}', style: kBodyTextStyle),
+                          const SizedBox(width: 5.0),
+                          Text(
+                            '(${loadedMeal.reviews} reviews)',
+                            style: kBodyTextStyle,
+                          ),
+                        ],
                       ),
                       Text(
                         '\$${loadedMeal.price}',
@@ -86,7 +88,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 5.0),
                   Row(
                     children: [
                       Text(
@@ -123,6 +125,3 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     );
   }
 }
-
-
-

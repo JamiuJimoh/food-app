@@ -45,6 +45,8 @@ const kAccentColor2 = Color(0xFFFED946);
 const kAccentColor3 = Color(0xFFFF975D);
 const kScaffoldColor = Color(0xCC111328);
 const kSecondaryColor = Color(0xFF1D1E33);
+// const kBorderColor = Color(0xFFa7a6ba);
+const kBorderColor = Color(0xFF8c92ac);
 const kTextColor = Color(0xFFE0E0E0);
 
 // const kTextColor = Color(0xCC111328);
