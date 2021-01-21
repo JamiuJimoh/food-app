@@ -14,8 +14,9 @@ class AppTheme {
   static final ThemeData primaryAppTheme = ThemeData(
     scaffoldBackgroundColor: _primaryColor,
     appBarTheme: AppBarTheme(
-      color: _secondaryColor,
+      color: _primaryColor,
       iconTheme: IconThemeData(color: _textColor),
+      elevation: 3.5,
     ),
     textTheme: TextTheme(
       bodyText1: TextStyle(color: _textColor),

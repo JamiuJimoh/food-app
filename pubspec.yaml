@@ -71,8 +71,14 @@ flutter:
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-medium.ttf
+          weight: 500
         - asset: assets/fonts/Poppins-bold.ttf
           weight: 700
+        - asset: assets/fonts/Poppins-light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-thin.ttf
+          weight: 100
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

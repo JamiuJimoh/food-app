@@ -8,22 +8,10 @@ import '../constants.dart';
 import 'rounded_icon_button.dart';
 
 class MealItemCard extends StatelessWidget {
-  // final String id;
-  // final String title;
-  // final String imageUrl;
-  // final double price;
-  // final DateTime timeToPrep;
-  // final double ratings;
-  bool isPopular;
+  final bool isPopular;
   final double imageContainerHeight;
 
   MealItemCard({
-    // @required this.id,
-    // @required this.title,
-    // @required this.imageUrl,
-    // @required this.price,
-    // @required this.timeToPrep,
-    // @required this.ratings,
     @required this.isPopular,
     this.imageContainerHeight,
   });
@@ -47,7 +35,7 @@ class MealItemCard extends StatelessWidget {
           child: Column(
             children: [
               Flexible(
-                flex: 4,
+                flex: 6,
                 child: Container(
                   child: Stack(
                     children: <Widget>[
@@ -89,11 +77,11 @@ class MealItemCard extends StatelessWidget {
                 ),
               ),
               Flexible(
-                flex: 2,
+                flex: 3,
                 fit: FlexFit.tight,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 7.0, horizontal: 15.0),
+                      vertical: 5.0, horizontal: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -101,27 +89,38 @@ class MealItemCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            meal.title,
-                            style: kDescTextStyle,
+                          Container(
+                            width: 190.0,
+                            child: Text(
+                              meal.title,
+                              style: kDescTextStyle,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           Row(
                             children: [
                               Icon(
                                 Icons.star,
                                 color: kAccentColor2,
-                                size: 20.0,
+                                size: 18.0,
                               ),
+                              SizedBox(width: 2.0),
                               Text(
                                 '${meal.ratings}',
+                                style: kSubtitleTextStyle,
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(width: 15.0),
+                              Icon(Icons.timer, size: 18.0),
+                              const SizedBox(width: 5.0),
+                              Text(
+                                '${meal.timeToPrep} mins',
                                 style: kSubtitleTextStyle,
                               ),
                             ],
                           ),
-                          // Text(
-                          //   '$timeToPrep',
-                          //   style: kSubtitleTextStyle,
-                          // )
                         ],
                       ),
                       Text(

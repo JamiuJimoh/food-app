@@ -19,16 +19,9 @@ class MealsListBuilder extends StatelessWidget {
     final meals = isPopular ? mealsData.popularMeals : mealsData.items;
     return ChangeNotifierProvider.value(
       value: meals[index],
-      // create: (ctx)=>meals[index],
       child: MealItemCard(
         isPopular: isPopular,
-        imageContainerHeight: 250.0,
-        // id: meals[index].id,
-        // imageUrl: meals[index].imageUrl,
-        // price: meals[index].price,
-        // title: meals[index].title,
-        // timeToPrep: meals[index].timeToPrep,
-        // ratings: meals[index].ratings,
+        imageContainerHeight: 200.0,
       ),
     );
   }

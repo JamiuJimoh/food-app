@@ -69,7 +69,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                         children: [
                           Icon(
                             Icons.star,
-                            size: 20.0,
+                            size: 18.0,
                             color: kAccentColor2,
                           ),
                           const SizedBox(width: 1.5),

@@ -23,6 +23,14 @@ class Meals with ChangeNotifier {
     return newMealsList;
   }
 
+  List<Meal> get favoriteMeals {
+    return _mealsList.where((mealItem) => mealItem.isFavorite).toList();
+  }
+
+  int get favoriteMealsListLength {
+    return favoriteMeals.length;
+  }
+
   // void showFavoritesOnly() {
   //   _showFavoritesOnly = true;
   //   notifyListeners();

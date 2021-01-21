@@ -15,7 +15,8 @@ const kBodyTextStyle = TextStyle(
   color: kTextColor,
 );
 const kSubtitleTextStyle = TextStyle(
-  fontSize: 13.0,
+  fontSize: 14.0,
+  fontWeight: FontWeight.w300,
   color: kTextColor,
 );
 const kPriceTextStyle = TextStyle(

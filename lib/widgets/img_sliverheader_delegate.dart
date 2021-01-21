@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:food_delivery/providers/meal.dart';
 
@@ -62,7 +61,7 @@ class ImageSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0),
-                )),
+                ),),
           ),
         ),
       ],
