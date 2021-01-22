@@ -12,6 +12,8 @@ class Meal with ChangeNotifier {
   final int reviews;
   final int timeToPrep;
   final Map<String, Object> vendorInfo;
+  final double distance;
+  final String location;
   bool isFavorite;
 
   Meal({
@@ -25,6 +27,8 @@ class Meal with ChangeNotifier {
     @required this.reviews,
     @required this.timeToPrep,
     @required this.vendorInfo,
+    @required this.distance,
+    @required this.location,
     this.isFavorite = false,
   });
 

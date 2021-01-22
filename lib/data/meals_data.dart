@@ -14,6 +14,8 @@ class MealsData {
       reviews: 59,
       timeToPrep: 45,
       vendorInfo: null,
+      distance: 24.5,
+      location: '97, Stockholm',
     ),
     Meal(
       id: 'p2',
@@ -27,6 +29,8 @@ class MealsData {
       reviews: 53,
       timeToPrep: 20,
       vendorInfo: null,
+      distance: 12.0,
+      location: '15, Valhala',
     ),
     Meal(
       id: 'p3',
@@ -40,6 +44,8 @@ class MealsData {
       reviews: 123,
       timeToPrep: 30,
       vendorInfo: null,
+      distance: 18.3,
+      location: '23, Vala',
     ),
     Meal(
       id: 'p4',
@@ -53,6 +59,8 @@ class MealsData {
       reviews: 86,
       timeToPrep: 15,
       vendorInfo: null,
+      distance: 43.8,
+      location: '31, Moghulis',
     ),
     Meal(
       id: 'p5',
@@ -66,6 +74,8 @@ class MealsData {
       reviews: 573,
       timeToPrep: 10,
       vendorInfo: null,
+      distance: 21.5,
+      location: '64, Indie',
     ),
   ];
 

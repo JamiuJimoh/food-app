@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/category_meals_screen.dart';
+import '../screens/selected_category_screen..dart';
 import '../providers/category.dart';
 import '../constants.dart';
 
@@ -18,7 +18,7 @@ class RoundedCatItem extends StatelessWidget {
         onTap: () {
           print('${category.id}');
           Navigator.of(context).pushNamed(
-            CategoryMealsScreen.id,
+            SelectedCategoryScreen.id,
             arguments: category.id,
           );
         },

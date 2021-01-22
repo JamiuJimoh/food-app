@@ -4,7 +4,7 @@ import 'package:food_delivery/providers/categories.dart';
 import 'package:food_delivery/providers/meals.dart';
 import 'package:provider/provider.dart';
 
-class CategoryMealsScreen extends StatelessWidget {
+class SelectedCategoryScreen extends StatelessWidget {
   static const String id = 'categories_screen';
 
   @override

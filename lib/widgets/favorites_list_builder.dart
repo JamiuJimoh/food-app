@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/meals.dart';
@@ -12,9 +13,12 @@ class FavoritesListBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context);
     final favoriteMeals = mealsData.favoriteMeals;
-    return ChangeNotifierProvider.value(
-      value: favoriteMeals[index],
-      child: ListTileCard(),
-    );
+    // final emptyListMessage=favoriteMeals.length==0?
+    return favoriteMeals.length == 0
+        ? Center(child: Text('You do not have any favorites yet!', style: kDescTextStyle,))
+        : ChangeNotifierProvider.value(
+            value: favoriteMeals[index],
+            child: ListTileCard(),
+          );
   }
 }
