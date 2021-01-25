@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/providers/cart.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -21,6 +22,25 @@ class MealsOverviewScreen extends StatelessWidget {
             ),
             centerTitle: false,
             floating: true,
+            // pinned: true,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Consumer<Cart>(
+                  builder: (_, cart, ch) => Badge(
+                    value: cart.itemCount.toString(),
+                    child: ch,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: kTextColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           CategoriesSection(),
           SliverToBoxAdapter(
@@ -95,7 +115,7 @@ class _CategoriesSectionState extends State<CategoriesSection> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final mediaQuery = MediaQuery.of(context);
-    categorySectionHeight=mediaQuery.size.width * 0.28;
+    categorySectionHeight = mediaQuery.size.width * 0.28;
   }
 
   @override

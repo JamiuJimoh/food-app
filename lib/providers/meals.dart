@@ -24,7 +24,11 @@ class Meals with ChangeNotifier {
   }
 
   List<Meal> get favoriteMeals {
+    // if (favoriteMealsListLength != null && favoriteMealsListLength != 0) {
     return _mealsList.where((mealItem) => mealItem.isFavorite).toList();
+    // } else {
+    //   return [];
+    // }
   }
 
   int get favoriteMealsListLength {
@@ -51,6 +55,11 @@ class Meals with ChangeNotifier {
 
   void addProduct() {
     // _mealsList.add();
+    notifyListeners();
+  }
+
+  void removeItem(String mealId) {
+    _mealsList.remove(mealId);
     notifyListeners();
   }
 }

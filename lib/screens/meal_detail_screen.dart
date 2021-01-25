@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/providers/meal.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../widgets/widgets.dart';
-import '../providers/meals.dart';
+import '../providers/providers.dart';
 
 class MealDetailScreen extends StatefulWidget {
   static const String id = 'meal_detail_screen';
@@ -40,6 +39,8 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
 
     final loadedMeal =
         Provider.of<Meals>(context, listen: false).findById(mealId);
+
+    final cart = Provider.of<Cart>(context, listen: false);
 
     return Scaffold(
       body: CustomScrollView(
@@ -140,8 +141,12 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
       bottomSheet: GradientButton(
         isCurved: false,
         context: context,
-        label: 'ORDER NOW',
-        onTap: () {},
+        label: 'ADD TO CART',
+        onTap: () => cart.addItem(
+          loadedMeal.id,
+          loadedMeal.price,
+          loadedMeal.title,
+        ),
       ),
     );
   }

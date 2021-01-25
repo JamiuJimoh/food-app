@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/constants.dart';
+
+import '../constants.dart';
 
 final Color borderSidedColor = kBorderColor.withOpacity(0.6);
 const double borderSideWidth = 1.25;

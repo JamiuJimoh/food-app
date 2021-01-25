@@ -12,3 +12,4 @@ export 'img_sliverheader_delegate.dart';
 export 'bordered_container.dart';
 export 'list_tile_card.dart';
 export 'favorites_list_builder.dart';
+export 'badge.dart';

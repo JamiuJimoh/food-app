@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Categories(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => Cart(),
+        ),
       ],
       child: MaterialApp(
         title: 'Food delivery app',

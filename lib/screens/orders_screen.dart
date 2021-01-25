@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/widgets/widgets.dart';
 
 class OrdersScreen extends StatelessWidget {
   @override
@@ -8,7 +7,7 @@ class OrdersScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Orders'),
       ),
-      body: ListTileCard(),
+      // body: ListTileCard(),
     );
   }
 }
