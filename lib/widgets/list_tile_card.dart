@@ -5,7 +5,7 @@ import '../screens/meal_detail_screen.dart';
 import '../providers/meal.dart';
 import '../constants.dart';
 
-const double listTileCardHeight = 120.0;
+const double _listTileCardHeight = 100.0;
 
 class ListTileCard extends StatefulWidget {
   @override
@@ -13,18 +13,18 @@ class ListTileCard extends StatefulWidget {
 }
 
 class _ListTileCardState extends State<ListTileCard> {
-  double imgContainerWidth;
-  double mealDetailsContainerWidth;
+  double _imgContainerWidth;
+  double _mealDetailsContainerWidth;
 
-  static const double totalContainersHorizontalPadding = 80.0;
+  static const double _totalContainersHorizontalPadding = 80.0;
   // total containers horizontal padding (30 + 50 = 80)
 
   @override
   void didChangeDependencies() {
     final mediaQueryWidth = MediaQuery.of(context).size.width;
-    imgContainerWidth = mediaQueryWidth * 0.34;
-    mealDetailsContainerWidth =
-        mediaQueryWidth - imgContainerWidth - totalContainersHorizontalPadding;
+    _imgContainerWidth = mediaQueryWidth * 0.34;
+    _mealDetailsContainerWidth =
+        mediaQueryWidth - _imgContainerWidth - _totalContainersHorizontalPadding;
     super.didChangeDependencies();
   }
 
@@ -37,19 +37,18 @@ class _ListTileCardState extends State<ListTileCard> {
         MealDetailScreen.id,
         arguments: meal.id,
       ),
-      // onTap
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 3.0),
         //first horizontal padding (double for both sides is 15 + 15 = 30)
         child: Column(
           children: [
             Container(
-              height: listTileCardHeight,
+              height: _listTileCardHeight,
               width: double.infinity,
               child: Row(
                 children: [
                   Container(
-                    width: imgContainerWidth,
+                    width: _imgContainerWidth,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
@@ -66,7 +65,7 @@ class _ListTileCardState extends State<ListTileCard> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     //second horizontal padding (double for both sides is 25 + 25 = 50)
-                    width: mealDetailsContainerWidth,
+                    width: _mealDetailsContainerWidth,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,42 +73,19 @@ class _ListTileCardState extends State<ListTileCard> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              child: Text(
-                                meal.title,
-                                style: kDescTextStyle,
-                                softWrap: false,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                            Text(
+                              meal.title,
+                              style: kDescTextStyle,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            const SizedBox(height: 10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.place,
-                                  size: 18.0,
-                                ),
-                                const SizedBox(width: 1.5),
-                                Container(
-                                  width: mealDetailsContainerWidth -
-                                      totalContainersHorizontalPadding,
-                                  child: Text(
-                                    meal.location,
-                                    style: kBodyTextStyle,
-                                    softWrap: false,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5.0),
+                            const SizedBox(height: 3.0),
                             Row(
                               children: [
-                                Icon(Icons.my_location, size: 20.0),
+                                Icon(Icons.timer, size: 20.0),
                                 const SizedBox(width: 5.0),
                                 Text(
-                                  '${meal.distance} km',
+                                  '${meal.timeToPrep} mins',
                                   style: kBodyTextStyle,
                                   softWrap: false,
                                   overflow: TextOverflow.ellipsis,
@@ -128,11 +104,14 @@ class _ListTileCardState extends State<ListTileCard> {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 5.0,
+            ),
             const Divider(
               color: kBorderColor,
               thickness: 0.3,
-              indent: 15.0,
-              endIndent: 15.0,
+              // indent: 5.0,
+              // endIndent: 5.0,
               height: 20.0,
             )
           ],

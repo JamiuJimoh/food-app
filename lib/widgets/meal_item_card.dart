@@ -64,7 +64,6 @@ class MealItemCard extends StatelessWidget {
                               icon: Icon(meal.isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border),
-                              // size: 27.0,
                               onPressed: () {
                                 meal.toggleFavoriteStatus();
                               },

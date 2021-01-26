@@ -57,11 +57,12 @@ class ImageSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
             width: MediaQuery.of(context).size.width,
             height: roundedContainerHeight,
             decoration: BoxDecoration(
-                color: kScaffoldColor.withOpacity(1.0),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40.0),
-                  topRight: Radius.circular(40.0),
-                ),),
+              color: kScaffoldColor.withOpacity(1.0),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40.0),
+                topRight: Radius.circular(40.0),
+              ),
+            ),
           ),
         ),
       ],

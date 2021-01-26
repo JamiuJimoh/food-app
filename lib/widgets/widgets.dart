@@ -13,3 +13,5 @@ export 'bordered_container.dart';
 export 'list_tile_card.dart';
 export 'favorites_list_builder.dart';
 export 'badge.dart';
+export 'cart_item.dart';
+export 'counter.dart';

@@ -6,9 +6,8 @@ class AppTheme {
   AppTheme._();
 
   static const Color _primaryColor = kScaffoldColor;
-  static const Color _secondaryColor = kSecondaryColor;
   static const Color _iconColor = kAccentColor;
-  static const Color _accentColor = kAccentColor2;
+  static const Color _accentColor = kAccentColor;
   static const Color _textColor = kTextColor;
 
   static final ThemeData primaryAppTheme = ThemeData(
@@ -18,6 +17,7 @@ class AppTheme {
       iconTheme: IconThemeData(color: _textColor),
       elevation: 3.5,
     ),
+    accentColor: _accentColor,
     textTheme: TextTheme(
       bodyText1: TextStyle(color: _textColor),
     ),

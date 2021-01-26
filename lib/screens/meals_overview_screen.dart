@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../providers/meals.dart';
 import '../widgets/widgets.dart';
+import 'cart_screen.dart';
 
 class MealsOverviewScreen extends StatelessWidget {
   static const String id = 'meals_overview_screen';
@@ -32,7 +33,9 @@ class MealsOverviewScreen extends StatelessWidget {
                     child: ch,
                   ),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(CartScreen.id);
+                    },
                     icon: Icon(
                       Icons.shopping_cart,
                       color: kTextColor,

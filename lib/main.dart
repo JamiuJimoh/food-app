@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
           MealsOverviewScreen.id: (context) => MealsOverviewScreen(),
           MealDetailScreen.id: (context) => MealDetailScreen(),
           SelectedCategoryScreen.id: (context) => SelectedCategoryScreen(),
+          CartScreen.id: (context)=> CartScreen(),
         },
       ),
     );

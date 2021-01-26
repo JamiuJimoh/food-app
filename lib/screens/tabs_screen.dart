@@ -28,6 +28,7 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
         // appBar: AppBar(
         //   title: Text('Meals'),
@@ -36,7 +37,8 @@ class _TabsScreenState extends State<TabsScreen> {
         body: _pages[_selectedPageIndex],
         bottomNavigationBar: BottomNavigationBar(
           onTap: _selectPage,
-          backgroundColor: kSecondaryColor,
+          backgroundColor: kScaffoldColor,
+          elevation: 10.0,
           unselectedItemColor: kBorderColor,
           selectedItemColor: kAccentColor,
           currentIndex: _selectedPageIndex,

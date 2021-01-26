@@ -91,38 +91,64 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   ),
                   const SizedBox(height: 5.0),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        Icons.place,
-                        size: 18.0,
+                      Column(
+                        children: [
+                          Text(
+                            'Vendor\'s location',
+                            style: kBodyTextStyle,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.place,
+                                size: 18.0,
+                              ),
+                              const SizedBox(width: 1.5),
+                              Text(
+                                loadedMeal.location,
+                                style: kBodyTextStyle,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 1.5),
-                      Text(
-                        loadedMeal.location,
-                        style: kBodyTextStyle,
+                      Column(
+                        children: [
+                          Text(
+                            'Distance',
+                            style: kBodyTextStyle,
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.my_location, size: 20.0),
+                              const SizedBox(width: 5.0),
+                              Text(
+                                '${loadedMeal.distance} km',
+                                style: kBodyTextStyle,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 10.0),
-                      Icon(Icons.my_location, size: 20.0),
-                      const SizedBox(width: 5.0),
-                      Text(
-                        '${loadedMeal.distance} km',
-                        style: kBodyTextStyle,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5.0),
-                  Row(
-                    children: [
-                      Text(
-                        'Delivery time',
-                        style: kBodyTextStyle,
-                      ),
-                      const SizedBox(width: 10.0),
-                      Icon(Icons.timer, size: 20.0),
-                      const SizedBox(width: 5.0),
-                      Text(
-                        '${loadedMeal.timeToPrep} mins',
-                        style: kBodyTextStyle,
+                      Column(
+                        children: [
+                          Text(
+                            'Time to prepare',
+                            style: kBodyTextStyle,
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.timer, size: 20.0),
+                              const SizedBox(width: 5.0),
+                              Text(
+                                '${loadedMeal.timeToPrep} mins',
+                                style: kBodyTextStyle,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -146,6 +172,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           loadedMeal.id,
           loadedMeal.price,
           loadedMeal.title,
+          loadedMeal.imageUrl,
         ),
       ),
     );
