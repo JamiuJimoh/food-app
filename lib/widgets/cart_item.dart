@@ -16,6 +16,7 @@ class CartItem extends StatefulWidget {
   final String imageUrl;
   final double price;
   final int quantity;
+  final Function toggleIsEmpty;
 
   const CartItem({
     @required this.cartId,
@@ -24,6 +25,7 @@ class CartItem extends StatefulWidget {
     @required this.imageUrl,
     @required this.price,
     @required this.quantity,
+    @required this.toggleIsEmpty,
   });
 
   @override
@@ -63,6 +65,9 @@ class _CartItemState extends State<CartItem> {
       ),
       onDismissed: (direction) {
         cart.removeItem(widget.mealId);
+        if (cart.itemCount < 1) {
+          widget.toggleIsEmpty();
+        }
       },
       child: InkWell(
         onTap: () => Navigator.of(context).pushNamed(

@@ -21,6 +21,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => Orders(),
+        ),
       ],
       child: MaterialApp(
         title: 'Food delivery app',
@@ -35,7 +38,8 @@ class MyApp extends StatelessWidget {
           MealsOverviewScreen.id: (context) => MealsOverviewScreen(),
           MealDetailScreen.id: (context) => MealDetailScreen(),
           SelectedCategoryScreen.id: (context) => SelectedCategoryScreen(),
-          CartScreen.id: (context)=> CartScreen(),
+          CartScreen.id: (context) => CartScreen(),
+          OrdersScreen.id: (context) => OrdersScreen(),
         },
       ),
     );

@@ -5,40 +5,62 @@ import '../constants.dart';
 import '../providers/providers.dart';
 import '../widgets/favorites_list_builder.dart';
 
-class FavoritesScreen extends StatelessWidget {
-  Widget _favListDisplay(int index, int favListLength, List<Meal> favList) {
-    if (favListLength == 0 && favList == null) {
-      print('container nill');
-      return Container(
-        height: 100.0,
-        color: kAccentColor,
-        child: Text(
-          'You do not have any favorites yet!',
-          style: kDescTextStyle,
-        ),
-      );
-    } else {
-      return FavoritesListBuilder(index: index);
-    }
+class FavoritesScreen extends StatefulWidget {
+  @override
+  _FavoritesScreenState createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  var _isEmpty = false;
+
+  void _toggleIsEmpty(int favMealsListLength) {
+    setState(() {
+      if (favMealsListLength > 0) {
+        _isEmpty = false;
+      } else {
+        _isEmpty = true;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context, listen: false);
-    final favoriteMeals = mealsData.favoriteMeals;
+    // final favoriteMeals = mealsData.favoriteMeals;
 
-    print(mealsData.favoriteMealsListLength);
+    _toggleIsEmpty(mealsData.favoriteMealsListLength);
+
+    print(_isEmpty);
     return Scaffold(
       appBar: AppBar(
         title: Text('favorites'),
       ),
-      body: ListView.builder(
-        itemCount: mealsData.favoriteMealsListLength,
-        itemBuilder: (ctx, i) {
-          return _favListDisplay(
-              i, mealsData.favoriteMealsListLength, favoriteMeals);
-        },
-      ),
+      body: _isEmpty
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Container(
+                    height: 100.0,
+                    // color: kAccentColor,
+                    child: Text(
+                      'You do not have any favorites yet!',
+                      style: kDescTextStyle,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : ListView.builder(
+              itemCount: mealsData.favoriteMealsListLength,
+              itemBuilder: (ctx, i) {
+                return FavoritesListBuilder(
+                  index: i,
+                  toggleIsEmpty: () =>
+                      _toggleIsEmpty(mealsData.favoriteMealsListLength),
+                );
+              },
+            ),
     );
   }
 }

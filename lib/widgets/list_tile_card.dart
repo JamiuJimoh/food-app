@@ -22,9 +22,10 @@ class _ListTileCardState extends State<ListTileCard> {
   @override
   void didChangeDependencies() {
     final mediaQueryWidth = MediaQuery.of(context).size.width;
-    _imgContainerWidth = mediaQueryWidth * 0.34;
-    _mealDetailsContainerWidth =
-        mediaQueryWidth - _imgContainerWidth - _totalContainersHorizontalPadding;
+    _imgContainerWidth = mediaQueryWidth * 0.30;
+    _mealDetailsContainerWidth = mediaQueryWidth -
+        _imgContainerWidth -
+        _totalContainersHorizontalPadding;
     super.didChangeDependencies();
   }
 
@@ -56,10 +57,7 @@ class _ListTileCardState extends State<ListTileCard> {
                         ),
                         fit: BoxFit.cover,
                       ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(9.0),
-                        topRight: Radius.circular(9.0),
-                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     ),
                   ),
                   Container(
@@ -110,8 +108,6 @@ class _ListTileCardState extends State<ListTileCard> {
             const Divider(
               color: kBorderColor,
               thickness: 0.3,
-              // indent: 5.0,
-              // endIndent: 5.0,
               height: 20.0,
             )
           ],

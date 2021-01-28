@@ -6,23 +6,27 @@ import 'list_tile_card.dart';
 
 class FavoritesListBuilder extends StatelessWidget {
   final int index;
+  final Function toggleIsEmpty;
 
-  FavoritesListBuilder({@required this.index});
+  FavoritesListBuilder({
+    @required this.index,
+    @required this.toggleIsEmpty,
+  });
   @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context, listen: false);
     final favoriteMeals = mealsData.favoriteMeals;
-    // final emptyListMessage=favoriteMeals.length==0?
-    // print(favoriteMeals == null ? "null" : "not null");
+    final favoriteMeal = favoriteMeals[index];
+
     return ChangeNotifierProvider.value(
-      value: favoriteMeals[index],
+      value: favoriteMeal,
       child: Dismissible(
-        key: ValueKey(favoriteMeals[index].id),
+        key: ValueKey(favoriteMeal.id),
         direction: DismissDirection.endToStart,
         background: Container(
           color: Theme.of(context).errorColor,
           child: Icon(
-            Icons.delete,
+            Icons.cancel,
             color: Colors.white,
             size: 40.0,
           ),
@@ -32,6 +36,9 @@ class FavoritesListBuilder extends StatelessWidget {
         ),
         onDismissed: (direction) {
           favoriteMeals[index].toggleFavoriteStatus();
+          if (mealsData.favoriteMealsListLength < 1) {
+            toggleIsEmpty();
+          }
         },
         child: ListTileCard(),
       ),
