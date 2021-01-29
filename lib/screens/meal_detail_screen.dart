@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../widgets/widgets.dart';
 import '../providers/providers.dart';
+import 'cart_screen.dart';
 
 class MealDetailScreen extends StatefulWidget {
   static const String id = 'meal_detail_screen';
@@ -152,7 +153,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15.0),
+                  const SizedBox(height: 20.0),
                   Text(
                     loadedMeal.description,
                     style: kDescTextStyle,
@@ -168,12 +169,20 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
         isCurved: false,
         context: context,
         label: 'ADD TO CART',
-        onTap: () => cart.addItem(
-          loadedMeal.id,
-          loadedMeal.price,
-          loadedMeal.title,
-          loadedMeal.imageUrl,
-        ),
+        onTap: () {
+          cart.addItem(
+            loadedMeal.id,
+            loadedMeal.price,
+            loadedMeal.title,
+            loadedMeal.imageUrl,
+          );
+          Navigator.of(context).pushReplacementNamed(CartScreen.id);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     content: Text('Added item to cart!'),
+          //   ),
+          // );
+        },
       ),
     );
   }

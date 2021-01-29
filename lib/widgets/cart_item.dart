@@ -80,16 +80,19 @@ class _CartItemState extends State<CartItem> {
           width: double.infinity,
           child: Row(
             children: [
-              Container(
-                width: _imgContainerWidth,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      widget.imageUrl,
+              Hero(
+                tag: widget.mealId,
+                child: Container(
+                  width: _imgContainerWidth,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        widget.imageUrl,
+                      ),
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
               ),
               Container(
@@ -129,7 +132,7 @@ class _CartItemState extends State<CartItem> {
                             );
                           },
                           onRemoveButtonPressed: widget.quantity == 1
-                              ? null
+                              ? () {}
                               : () {
                                   cart.decreaseQuantity(
                                     widget.cartId,

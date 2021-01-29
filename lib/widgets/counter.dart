@@ -23,7 +23,11 @@ class Counter extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-              icon: Icon(Icons.remove), onPressed: onRemoveButtonPressed),
+              icon: Icon(
+                Icons.remove,
+                color: quantity == 1 ? kScaffoldColor : kAccentColor,
+              ),
+              onPressed: onRemoveButtonPressed),
           Text(
             '${quantity}',
             style: kDescTextStyle,

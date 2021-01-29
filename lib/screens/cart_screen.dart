@@ -82,7 +82,6 @@ class _CartScreenState extends State<CartScreen> {
                         price: _cart.items.values.toList()[i].price,
                         quantity: _cart.items.values.toList()[i].quantity,
                         toggleIsEmpty: ()=>_toggleIsEmpty(_itemCount),
-                        // style: kDescTextStyle,
                       ),
                     ),
                   ),
@@ -149,7 +148,7 @@ class _CartScreenState extends State<CartScreen> {
                             Provider.of<Orders>(context, listen: false)
                                 .addOrder(
                               _cart.items.values.toList(),
-                              _cart.totalAmount,
+                              // _cart.totalAmount,
                             );
                             _cart.clear();
                           },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../screens/meal_detail_screen.dart';
 import '../providers/meals.dart';
 import 'list_tile_card.dart';
 
@@ -26,9 +27,9 @@ class FavoritesListBuilder extends StatelessWidget {
         background: Container(
           color: Theme.of(context).errorColor,
           child: Icon(
-            Icons.cancel,
+            Icons.clear,
             color: Colors.white,
-            size: 40.0,
+            size: 30.0,
           ),
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.only(right: 20.0),
@@ -40,7 +41,13 @@ class FavoritesListBuilder extends StatelessWidget {
             toggleIsEmpty();
           }
         },
-        child: ListTileCard(),
+        child: InkWell(
+          onTap: () => Navigator.of(context).pushNamed(
+            MealDetailScreen.id,
+            arguments: favoriteMeal.id,
+          ),
+          child: ListTileCard(),
+        ),
       ),
     );
   }

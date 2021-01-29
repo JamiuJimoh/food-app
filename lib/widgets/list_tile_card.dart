@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/meal_detail_screen.dart';
+import '../screens/cart_screen.dart';
 import '../providers/meal.dart';
 import '../constants.dart';
 
@@ -33,22 +33,19 @@ class _ListTileCardState extends State<ListTileCard> {
   Widget build(BuildContext context) {
     final meal = Provider.of<Meal>(context, listen: false);
 
-    return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(
-        MealDetailScreen.id,
-        arguments: meal.id,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 3.0),
-        //first horizontal padding (double for both sides is 15 + 15 = 30)
-        child: Column(
-          children: [
-            Container(
-              height: _listTileCardHeight,
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Container(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 3.0),
+      //first horizontal padding (double for both sides is 15 + 15 = 30)
+      child: Column(
+        children: [
+          Container(
+            height: _listTileCardHeight,
+            width: double.infinity,
+            child: Row(
+              children: [
+                Hero(
+                  tag: meal.id,
+                  child: Container(
                     width: _imgContainerWidth,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -60,58 +57,58 @@ class _ListTileCardState extends State<ListTileCard> {
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    //second horizontal padding (double for both sides is 25 + 25 = 50)
-                    width: _mealDetailsContainerWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              meal.title,
-                              style: kDescTextStyle,
-                              softWrap: false,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: 3.0),
-                            Row(
-                              children: [
-                                Icon(Icons.timer, size: 20.0),
-                                const SizedBox(width: 5.0),
-                                Text(
-                                  '${meal.timeToPrep} mins',
-                                  style: kBodyTextStyle,
-                                  softWrap: false,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Text(
-                          '\$${meal.price}',
-                          style: kPriceTextStyle,
-                        ),
-                      ],
-                    ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  //second horizontal padding (double for both sides is 25 + 25 = 50)
+                  width: _mealDetailsContainerWidth,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            meal.title,
+                            style: kDescTextStyle,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 3.0),
+                          Row(
+                            children: [
+                              Icon(Icons.timer, size: 20.0),
+                              const SizedBox(width: 5.0),
+                              Text(
+                                '${meal.timeToPrep} mins',
+                                style: kBodyTextStyle,
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Text(
+                        '\$${meal.price}',
+                        style: kPriceTextStyle,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            const Divider(
-              color: kBorderColor,
-              thickness: 0.3,
-              height: 20.0,
-            )
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          const Divider(
+            color: kBorderColor,
+            thickness: 0.3,
+            height: 20.0,
+          )
+        ],
       ),
     );
   }

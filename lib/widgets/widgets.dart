@@ -15,3 +15,5 @@ export 'favorites_list_builder.dart';
 export 'badge.dart';
 export 'cart_item.dart';
 export 'counter.dart';
+export 'order_item.dart';
+export 'add_to_cart.dart';

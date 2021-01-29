@@ -5,14 +5,14 @@ import 'cart.dart';
 class OrderItem {
   final String id;
   final double amount;
-  final List<CartItem> cartItems;
-  final DateTime dataTime;
+  final CartItem cartItem;
+  final DateTime dateTime;
 
   OrderItem({
     @required this.id,
     @required this.amount,
-    @required this.cartItems,
-    @required this.dataTime,
+    @required this.cartItem,
+    @required this.dateTime,
   });
 }
 
@@ -23,16 +23,22 @@ class Orders with ChangeNotifier {
     return [..._orders];
   }
 
-  void addOrder(List<CartItem> cartItems, double total) {
-    _orders.insert(
-      0,
-      OrderItem(
-        id: DateTime.now().toString(),
-        amount: total,
-        cartItems: cartItems,
-        dataTime: DateTime.now(),
-      ),
-    );
+  int get ordersListLength {
+    return _orders.length;
+  }
+
+  void addOrder(List<CartItem> cartItems) {
+    cartItems.forEach((item) {
+      _orders.insert(
+        0,
+        OrderItem(
+          id: DateTime.now().toString(),
+          amount: item.price,
+          cartItem: item,
+          dateTime: DateTime.now(),
+        ),
+      );
+    });
     notifyListeners();
   }
 }
