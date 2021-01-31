@@ -238,7 +238,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   children: [
                     Text(
                       'Goto Cart',
-                      style: kPriceTextStyle.copyWith(color: kAccentColor3),
+                      style: kDescTextStyle.copyWith(color: kAccentColor3),
                     ),
                     const SizedBox(width: 5.0),
                     Icon(
