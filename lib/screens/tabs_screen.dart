@@ -57,7 +57,7 @@ class _TabsScreenState extends State<TabsScreen> {
               label: 'Favorites',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag),
+              icon: Icon(Icons.payment),
               label: 'Orders',
             ),
             BottomNavigationBarItem(

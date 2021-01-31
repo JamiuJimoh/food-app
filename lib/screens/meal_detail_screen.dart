@@ -176,12 +176,82 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
             loadedMeal.title,
             loadedMeal.imageUrl,
           );
-          Navigator.of(context).pushReplacementNamed(CartScreen.id);
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(
-          //     content: Text('Added item to cart!'),
-          //   ),
-          // );
+          // Navigator.of(context).pushReplacementNamed(CartScreen.id);
+          showDialog(
+            context: context,
+            builder: (ctx) {
+              // return AlertDialog(
+              //   // backgroundColor: Color(0xFF000015),
+              //   title: Text('Meal added to cart'),
+              //   content: Text('Go to cart?'),
+              //   actions: [
+              //     FlatButton(
+              //       onPressed: () => Navigator.of(context).pop(),
+              //       child: Text('No'),
+              //     ),
+              //     FlatButton(
+              // onPressed: () => Navigator.of(context)
+              //     .pushReplacementNamed(CartScreen.id),
+              //       child: Text('Yes'),
+              //     ),
+              //   ],
+              // );
+              /////////////////////// ////////////////
+              ///
+              ///
+              // return Dialog(
+
+              //   shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(20.0),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(12.0),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: [
+              //         TextField(
+              //           decoration: InputDecoration(
+              //               border: InputBorder.none,
+              //               hintText:
+              //                   'Meal added to cart, do you want to go to cart?'),
+              //         ),
+              //         SizedBox(
+              //           width: 320.0,
+              //           child: RaisedButton(
+              // onPressed: () => Navigator.of(context)
+              //     .pushReplacementNamed(CartScreen.id),
+              //             child: Text('Yes'),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // );
+
+              return CustomDialog(
+                title: 'Success',
+                description: '1 item added to cart.',
+                image: AssetImage('assets/images/tick.gif'),
+                clickable: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Goto Cart',
+                      style: kPriceTextStyle.copyWith(color: kAccentColor3),
+                    ),
+                    const SizedBox(width: 5.0),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: kAccentColor3,
+                    ),
+                  ],
+                ),
+                onPressed: () =>
+                    Navigator.of(context).pushReplacementNamed(CartScreen.id),
+              );
+            },
+          );
         },
       ),
     );

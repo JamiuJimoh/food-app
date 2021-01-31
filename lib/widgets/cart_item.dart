@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/screens/meal_detail_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
+import '../screens/meal_detail_screen.dart';
 import '../providers/cart.dart';
 import 'counter.dart';
 

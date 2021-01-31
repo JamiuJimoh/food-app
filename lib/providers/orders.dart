@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 import 'cart.dart';
 
 class OrderItem {
   final String id;
   final double amount;
-  final CartItem cartItem;
+  final List<CartItem> cartItems;
   final DateTime dateTime;
 
   OrderItem({
     @required this.id,
     @required this.amount,
-    @required this.cartItem,
+    @required this.cartItems,
     @required this.dateTime,
   });
 }
@@ -27,18 +28,16 @@ class Orders with ChangeNotifier {
     return _orders.length;
   }
 
-  void addOrder(List<CartItem> cartItems) {
-    cartItems.forEach((item) {
-      _orders.insert(
-        0,
-        OrderItem(
-          id: DateTime.now().toString(),
-          amount: item.price,
-          cartItem: item,
-          dateTime: DateTime.now(),
-        ),
-      );
-    });
+  void addOrder(List<CartItem> cartItems, double total) {
+    _orders.insert(
+      0,
+      OrderItem(
+        id: '#${DateFormat('msmmddyyyy').format(DateTime.now())}',
+        amount: total,
+        cartItems: cartItems,
+        dateTime: DateTime.now(),
+      ),
+    );
     notifyListeners();
   }
 }

@@ -148,7 +148,7 @@ class _CartScreenState extends State<CartScreen> {
                             Provider.of<Orders>(context, listen: false)
                                 .addOrder(
                               _cart.items.values.toList(),
-                              // _cart.totalAmount,
+                              _cart.totalAmount,
                             );
                             _cart.clear();
                           },
