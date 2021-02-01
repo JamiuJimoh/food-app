@@ -244,6 +244,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                     Icon(
                       Icons.arrow_forward,
                       color: kAccentColor3,
+                      size: 17.0,
                     ),
                   ],
                 ),

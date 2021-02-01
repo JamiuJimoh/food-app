@@ -27,45 +27,42 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('Meals'),
-        // ),
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text('Meals'),
+      // ),
 
-        body: _pages[_selectedPageIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: _selectPage,
-          backgroundColor: kScaffoldColor,
-          elevation: 10.0,
-          unselectedItemColor: kBorderColor,
-          selectedItemColor: kAccentColor,
-          currentIndex: _selectedPageIndex,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.search),
-            //   label: 'Search',
-            // ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorites',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.payment),
-              label: 'Orders',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
-        ),
+      body: _pages[_selectedPageIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectPage,
+        backgroundColor: kScaffoldColor,
+        elevation: 10.0,
+        unselectedItemColor: kBorderColor,
+        selectedItemColor: kAccentColor,
+        currentIndex: _selectedPageIndex,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.roofing),
+            label: 'Home',
+          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.search),
+          //   label: 'Search',
+          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt),
+            label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
+          ),
+        ],
       ),
     );
   }
