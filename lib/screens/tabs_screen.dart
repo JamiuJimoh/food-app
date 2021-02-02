@@ -14,7 +14,7 @@ class _TabsScreenState extends State<TabsScreen> {
     MealsOverviewScreen(),
     FavoritesScreen(),
     OrdersScreen(),
-    ProfileScreen(),
+    AccountScreen(),
   ];
 
   int _selectedPageIndex = 0;

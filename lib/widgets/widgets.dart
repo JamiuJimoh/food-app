@@ -18,3 +18,4 @@ export 'counter.dart';
 export 'order_item.dart';
 export 'add_to_cart.dart';
 export 'custom_dialog.dart';
+export 'user_product_item.dart';

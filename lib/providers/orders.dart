@@ -32,7 +32,7 @@ class Orders with ChangeNotifier {
     _orders.insert(
       0,
       OrderItem(
-        id: '#${DateFormat('msmmddyyyy').format(DateTime.now())}',
+        id: '#${DateFormat('msMMddyyyy').format(DateTime.now())}',
         amount: total,
         cartItems: cartItems,
         dateTime: DateTime.now(),

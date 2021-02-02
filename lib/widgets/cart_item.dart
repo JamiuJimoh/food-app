@@ -75,7 +75,7 @@ class _CartItemState extends State<CartItem> {
           arguments: widget.mealId,
         ),
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+          margin: const EdgeInsets.all(10.0),
           height: _cartItemHeight,
           width: double.infinity,
           child: Row(

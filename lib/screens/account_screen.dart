@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/constants.dart';
 
-class ProfileScreen extends StatelessWidget {
+import '../constants.dart';
+import '../screens/screens.dart';
+
+class AccountScreen extends StatelessWidget {
   Widget _topColumn() {
     return Container(
       padding: const EdgeInsets.all(10.0),
@@ -35,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _bottomColumn() {
+  Widget _bottomColumn(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 20.0),
       width: double.infinity,
@@ -51,7 +53,13 @@ class ProfileScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _listItem(Icons.perm_identity, 'Profile', () {}),
-          _listItem(Icons.storefront, 'My Shop', () {}),
+          _listItem(
+            Icons.storefront,
+            'My Shop',
+            () {
+              Navigator.of(context).pushNamed(UserProductsScreen.id);
+            },
+          ),
           _listItem(Icons.electric_moped, 'Deliver With MatLyan', () {}),
           _listItem(Icons.settings, 'Settings', () {}),
           _listItem(Icons.logout, 'Log Out', () {}),
@@ -60,47 +68,49 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _listItem(IconData icon, String text, Function onPressed) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    icon,
-                    size: 22.0,
-                    color: kAccentColor,
-                  ),
-                  const SizedBox(width: 30.0),
-                  Text(
-                    text,
-                    style: kBodyTextStyle.copyWith(fontSize: 15.7),
-                  ),
-                ],
-              ),
-              IconButton(
-                icon: Icon(
+  Widget _listItem(IconData icon, String text, Function onListItemTapped) {
+    return GestureDetector(
+      onTap: onListItemTapped,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      icon,
+                      size: 22.0,
+                      color: kAccentColor,
+                    ),
+                    const SizedBox(width: 30.0),
+                    Text(
+                      text,
+                      style: kBodyTextStyle.copyWith(fontSize: 15.7),
+                    ),
+                  ],
+                ),
+                Icon(
                   Icons.keyboard_arrow_right,
                   size: 24.0,
                   color: kAccentColor,
                 ),
-                onPressed: onPressed,
-              ),
-              // const SizedBox(height: 20.0),
-            ],
+
+                // const SizedBox(height: 20.0),
+              ],
+            ),
           ),
-        ),
-        // const SizedBox(height: 10.0),
-        const Divider(
-          thickness: 0.15,
-          color: kBorderColor,
-        ),
-      ],
+          // const SizedBox(height: 10.0),
+          const Divider(
+            thickness: 0.15,
+            color: kBorderColor,
+          ),
+        ],
+      ),
     );
   }
 
@@ -124,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 4,
-                  child: _bottomColumn(),
+                  child: _bottomColumn(context),
                 ),
               ],
             ),
