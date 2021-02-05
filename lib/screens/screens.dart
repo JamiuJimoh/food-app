@@ -9,5 +9,5 @@ export 'account_screen.dart';
 export 'selected_category_screen..dart';
 export 'orders_screen.dart';
 export 'cart_screen.dart';
-export 'user_products_screen.dart';
-export 'edit_product_creen.dart';
+export 'user_shop_screen.dart';
+export 'edit_user_meal_screen.dart';

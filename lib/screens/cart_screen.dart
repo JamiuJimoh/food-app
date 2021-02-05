@@ -46,7 +46,6 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     _toggleIsEmpty(_itemCount);
-    print(_isEmpty);
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
@@ -70,7 +69,7 @@ class _CartScreenState extends State<CartScreen> {
           : Column(
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 6,
                   child: Container(
                     child: ListView.builder(
                       itemCount: _itemCount,
@@ -81,13 +80,13 @@ class _CartScreenState extends State<CartScreen> {
                         imageUrl: _cart.items.values.toList()[i].imageUrl,
                         price: _cart.items.values.toList()[i].price,
                         quantity: _cart.items.values.toList()[i].quantity,
-                        toggleIsEmpty: ()=>_toggleIsEmpty(_itemCount),
+                        toggleIsEmpty: () => _toggleIsEmpty(_itemCount),
                       ),
                     ),
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 10.0),

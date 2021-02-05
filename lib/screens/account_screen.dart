@@ -57,7 +57,7 @@ class AccountScreen extends StatelessWidget {
             Icons.storefront,
             'My Shop',
             () {
-              Navigator.of(context).pushNamed(UserProductsScreen.id);
+              Navigator.of(context).pushNamed(UserShopScreen.id);
             },
           ),
           _listItem(Icons.electric_moped, 'Deliver With MatLyan', () {}),

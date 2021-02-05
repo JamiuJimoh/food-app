@@ -6,7 +6,7 @@ const kTitleTextStyle = TextStyle(
   color: Colors.white,
 );
 const kDescTextStyle = TextStyle(
-  fontSize: 18.0,
+  fontSize: 17.0,
   color: kTextColor,
 );
 
@@ -49,6 +49,7 @@ const kSecondaryColor = Color(0xFF1D1E33);
 // const kBorderColor = Color(0xFFa7a6ba);
 const kBorderColor = Color(0xFF8c92ac);
 const kTextColor = Color(0xFFE0E0E0);
+const kFormLabelColor = Color(0xFF9E9E9E);
 
 // const kTextColor = Color(0xCC111328);
 // const kScaffoldColor = Color(0xFFF0F8FF);

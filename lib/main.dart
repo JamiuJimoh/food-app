@@ -40,8 +40,8 @@ class MyApp extends StatelessWidget {
           SelectedCategoryScreen.id: (context) => SelectedCategoryScreen(),
           CartScreen.id: (context) => CartScreen(),
           OrdersScreen.id: (context) => OrdersScreen(),
-          UserProductsScreen.id: (context) => UserProductsScreen(),
-          EditProductScreen.id: (context) => EditProductScreen(),
+          UserShopScreen.id: (context) => UserShopScreen(),
+          EditUserMealScreen.id: (context) => EditUserMealScreen(),
         },
       ),
     );

@@ -43,7 +43,7 @@ class _TabsScreenState extends State<TabsScreen> {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.roofing),
+            icon: Icon(Icons.home),
             label: 'Home',
           ),
           // BottomNavigationBarItem(

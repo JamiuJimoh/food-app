@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/user_product_item.dart';
+import '../widgets/user_meal_item.dart';
 import '../providers/meals.dart';
 
-class UserProductsScreen extends StatelessWidget {
+class UserShopScreen extends StatelessWidget {
   static const String id = 'user_products_screen';
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class UserProductsScreen extends StatelessWidget {
         itemCount: mealsData.mealsListLength,
         itemBuilder: (ctx, i) => Column(
           children: [
-            UserProductItem(
+            UserMealItem(
               imageUrl: mealsData.items[i].imageUrl,
               title: mealsData.items[i].title,
             ),

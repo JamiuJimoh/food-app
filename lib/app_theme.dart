@@ -17,6 +17,7 @@ class AppTheme {
       iconTheme: IconThemeData(color: _textColor),
       elevation: 3.5,
     ),
+    unselectedWidgetColor: kAccentColor,
     accentColor: _accentColor,
     textTheme: TextTheme(
       bodyText1: TextStyle(color: _textColor),
