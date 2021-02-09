@@ -23,12 +23,12 @@ class Meal with ChangeNotifier {
     @required this.description,
     @required this.price,
     @required this.imageUrl,
-    @required this.ratings,
-    @required this.reviews,
     @required this.timeToPrep,
     @required this.vendorInfo,
     @required this.distance,
     @required this.location,
+    this.ratings = 0,
+    this.reviews = 0,
     this.isFavorite = false,
   });
 

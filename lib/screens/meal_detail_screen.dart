@@ -56,6 +56,31 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                 left: 15.0,
                 bottom: 15.0,
               ),
+
+              // /////////////
+              // decoration: BoxDecoration(
+              //   color: kScaffoldColor,
+              //   borderRadius: BorderRadius.only(
+              //     topLeft: Radius.circular(40.0),
+              //     topRight: Radius.circular(40.0),
+              //   ),
+              // ),
+
+              //      SliverToBoxAdapter(
+              //   child: Stack(
+              //     children: [
+              //       Positioned(
+              //         top: 50.0,
+              //         child: Container(
+              //           color: kScaffoldColor,
+              //           width: double.infinity,
+              //           height: 100.0,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,62 +117,25 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   ),
                   const SizedBox(height: 5.0),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
+                      Row(
                         children: [
+                          Icon(Icons.my_location, size: 20.0),
+                          const SizedBox(width: 5.0),
                           Text(
-                            'Vendor\'s location',
+                            '${loadedMeal.distance} km',
                             style: kBodyTextStyle,
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.place,
-                                size: 18.0,
-                              ),
-                              const SizedBox(width: 1.5),
-                              Text(
-                                loadedMeal.location,
-                                style: kBodyTextStyle,
-                              ),
-                            ],
                           ),
                         ],
                       ),
-                      Column(
+                      const SizedBox(width: 25.0),
+                      Row(
                         children: [
+                          Icon(Icons.timer, size: 20.0),
+                          const SizedBox(width: 5.0),
                           Text(
-                            'Distance',
+                            '${loadedMeal.timeToPrep} mins',
                             style: kBodyTextStyle,
-                          ),
-                          Row(
-                            children: [
-                              Icon(Icons.my_location, size: 20.0),
-                              const SizedBox(width: 5.0),
-                              Text(
-                                '${loadedMeal.distance} km',
-                                style: kBodyTextStyle,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Time to prepare',
-                            style: kBodyTextStyle,
-                          ),
-                          Row(
-                            children: [
-                              Icon(Icons.timer, size: 20.0),
-                              const SizedBox(width: 5.0),
-                              Text(
-                                '${loadedMeal.timeToPrep} mins',
-                                style: kBodyTextStyle,
-                              ),
-                            ],
                           ),
                         ],
                       ),
@@ -176,59 +164,9 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
             loadedMeal.title,
             loadedMeal.imageUrl,
           );
-          // Navigator.of(context).pushReplacementNamed(CartScreen.id);
           showDialog(
             context: context,
             builder: (ctx) {
-              // return AlertDialog(
-              //   // backgroundColor: Color(0xFF000015),
-              //   title: Text('Meal added to cart'),
-              //   content: Text('Go to cart?'),
-              //   actions: [
-              //     FlatButton(
-              //       onPressed: () => Navigator.of(context).pop(),
-              //       child: Text('No'),
-              //     ),
-              //     FlatButton(
-              // onPressed: () => Navigator.of(context)
-              //     .pushReplacementNamed(CartScreen.id),
-              //       child: Text('Yes'),
-              //     ),
-              //   ],
-              // );
-              /////////////////////// ////////////////
-              ///
-              ///
-              // return Dialog(
-
-              //   shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(20.0),
-              //   ),
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(12.0),
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       children: [
-              //         TextField(
-              //           decoration: InputDecoration(
-              //               border: InputBorder.none,
-              //               hintText:
-              //                   'Meal added to cart, do you want to go to cart?'),
-              //         ),
-              //         SizedBox(
-              //           width: 320.0,
-              //           child: RaisedButton(
-              // onPressed: () => Navigator.of(context)
-              //     .pushReplacementNamed(CartScreen.id),
-              //             child: Text('Yes'),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // );
-
               return CustomDialog(
                 title: 'Success',
                 description: '1 item added to cart.',

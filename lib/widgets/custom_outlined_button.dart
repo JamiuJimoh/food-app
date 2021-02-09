@@ -13,18 +13,18 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlineButton(
+    return OutlinedButton(
       child: Text(
         label,
         style: kOnboardButtonTextStyle,
       ),
       onPressed: onTap,
-      borderSide: BorderSide(
-        color: kAccentColor,
-      ),
-      shape: new RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(30.0),
-      ),
+      // borderSide: BorderSide(
+      //   color: kAccentColor,
+      // ),
+      // shape: new RoundedRectangleBorder(
+      //   borderRadius: new BorderRadius.circular(30.0),
+      // ),
     );
   }
 }

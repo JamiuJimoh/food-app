@@ -24,4 +24,14 @@ class Categories with ChangeNotifier {
   Category findById(String catId) {
     return _categoriesList.firstWhere((category) => category.id == catId);
   }
+
+  List<Category> get mealPickedCategory {
+    return _categoriesList
+        .where((category) => category.isMealCategory)
+        .toList();
+  }
+
+  List<String> get mealPickedCategoryId {
+    return mealPickedCategory.map((item) => item.id).toList();
+  }
 }

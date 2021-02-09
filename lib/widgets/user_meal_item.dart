@@ -6,10 +6,12 @@ import '../screens/edit_user_meal_screen.dart';
 class UserMealItem extends StatefulWidget {
   final String title;
   final String imageUrl;
+  final String id;
 
   UserMealItem({
     @required this.title,
     @required this.imageUrl,
+    @required this.id,
   });
 
   @override
@@ -29,7 +31,9 @@ class _UserMealItemState extends State<UserMealItem> {
       child: ListTile(
         leading: CircleAvatar(
           radius: 40.0,
-          backgroundImage: AssetImage(widget.imageUrl),
+          backgroundImage: NetworkImage(
+            widget.imageUrl,
+          ),
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +58,7 @@ class _UserMealItemState extends State<UserMealItem> {
                     size: 23,
                   ),
                   onPressed: () =>
-                      Navigator.of(context).pushNamed(EditUserMealScreen.id),
+                      Navigator.of(context).pushNamed(EditUserMealScreen.id, arguments: widget.id),
                 ),
               ],
             ),

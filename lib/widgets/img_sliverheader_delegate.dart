@@ -13,8 +13,6 @@ class ImageSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
     this.loadedMeal,
   });
 
-  static const double roundedContainerHeight = 10.0;
-
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -24,7 +22,7 @@ class ImageSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
           height: expandedHeight,
           child: Hero(
             tag: loadedMeal.id,
-            child: Image.asset(
+            child: Image.network(
               loadedMeal.imageUrl,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,
@@ -55,13 +53,13 @@ class ImageSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
           bottom: -2,
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: roundedContainerHeight,
+            height: 100.0,
             decoration: BoxDecoration(
-              color: kScaffoldColor.withOpacity(1.0),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40.0),
-                topRight: Radius.circular(40.0),
-              ),
+              gradient: kScaffoldColorGradient,
+              // borderRadius: BorderRadius.only(
+              //   topLeft: Radius.circular(40.0),
+              //   topRight: Radius.circular(40.0),
+              // ),
             ),
           ),
         ),

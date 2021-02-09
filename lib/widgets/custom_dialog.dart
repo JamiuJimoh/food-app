@@ -57,7 +57,7 @@ class CustomDialog extends StatelessWidget {
                 const SizedBox(height: 24.0),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: onPressed,
                     child: clickable ??
                         Text(

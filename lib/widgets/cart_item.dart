@@ -86,9 +86,7 @@ class _CartItemState extends State<CartItem> {
                   width: _imgContainerWidth,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(
-                        widget.imageUrl,
-                      ),
+                      image: NetworkImage(widget.imageUrl),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),

@@ -8,7 +8,7 @@ class AccountScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10.0),
       // decoration: BoxDecoration(
-      //   gradient: kOnboardImageGradient,
+      //   gradient: kScaffoldColorGradient,
       // ),
       child: Row(
         children: [
@@ -122,7 +122,7 @@ class AccountScreen extends StatelessWidget {
       // ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: kOnboardBottomButtonGradient,
+          gradient: kAccentColorsGradient,
         ),
         child: Stack(
           children: [

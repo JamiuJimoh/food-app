@@ -39,7 +39,7 @@ class GradientButton extends StatelessWidget {
         height: Platform.isIOS ? 70 : 60,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          gradient: kOnboardBottomButtonGradient,
+          gradient: kAccentColorsGradient,
           borderRadius: _borderRadius(isCurved),
         ),
       ),

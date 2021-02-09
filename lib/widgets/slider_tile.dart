@@ -30,7 +30,7 @@ class SliderTile extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    gradient: kOnboardImageGradient,
+                    gradient: kScaffoldColorGradient,
                   ),
                 ),
               ],

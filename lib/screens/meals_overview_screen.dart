@@ -45,7 +45,7 @@ class MealsOverviewScreen extends StatelessWidget {
               ),
             ],
           ),
-          CategoriesSection(),
+        CategoriesSection(),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(18.0),
@@ -106,31 +106,4 @@ class MealsOverviewScreen extends StatelessWidget {
   }
 }
 
-class CategoriesSection extends StatefulWidget {
-  @override
-  _CategoriesSectionState createState() => _CategoriesSectionState();
-}
 
-class _CategoriesSectionState extends State<CategoriesSection> {
-  double categorySectionHeight;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final mediaQuery = MediaQuery.of(context);
-    categorySectionHeight = mediaQuery.size.width * 0.28;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
-      sliver: SliverToBoxAdapter(
-        child: Container(
-          height: categorySectionHeight,
-          child: CategoriesListBuilder(),
-        ),
-      ),
-    );
-  }
-}

@@ -8,12 +8,14 @@ class LayoutDesign extends StatelessWidget {
   final Widget firstColumnChild;
   final int secondColumnFlex;
   final Widget secondColumnChild;
+  final Color secondColumnColor;
 
   LayoutDesign({
     @required this.firstColumnFlex,
     @required this.secondColumnFlex,
     @required this.firstColumnChild,
     @required this.secondColumnChild,
+    this.secondColumnColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class LayoutDesign extends StatelessWidget {
           child: Container(
             child: secondColumnChild,
             decoration: BoxDecoration(
-              color: kSecondaryColor,
+              color: secondColumnColor ?? kSecondaryColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20.0),
                 topRight: Radius.circular(20.0),

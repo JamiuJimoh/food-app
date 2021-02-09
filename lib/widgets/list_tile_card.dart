@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/cart_screen.dart';
+// import '../screens/cart_screen.dart';
 import '../providers/meal.dart';
 import '../constants.dart';
 
@@ -49,9 +49,7 @@ class _ListTileCardState extends State<ListTileCard> {
                     width: _imgContainerWidth,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(
-                          meal.imageUrl,
-                        ),
+                        image: NetworkImage(meal.imageUrl),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),

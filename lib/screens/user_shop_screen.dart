@@ -4,19 +4,21 @@ import 'package:provider/provider.dart';
 
 import '../widgets/user_meal_item.dart';
 import '../providers/meals.dart';
+import 'edit_user_meal_screen.dart';
 
 class UserShopScreen extends StatelessWidget {
   static const String id = 'user_products_screen';
   @override
   Widget build(BuildContext context) {
-    final mealsData = Provider.of<Meals>(context);
+    final mealsData = Provider.of<Meals>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Meals'),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.of(context).pushNamed(EditUserMealScreen.id),
           ),
         ],
       ),
@@ -27,6 +29,7 @@ class UserShopScreen extends StatelessWidget {
             UserMealItem(
               imageUrl: mealsData.items[i].imageUrl,
               title: mealsData.items[i].title,
+              id: mealsData.items[i].id,
             ),
             const Divider(
               thickness: 0.3,

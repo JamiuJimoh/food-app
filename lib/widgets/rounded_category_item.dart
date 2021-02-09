@@ -10,7 +10,7 @@ const containerHeight = 20.0;
 class RoundedCatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final category = Provider.of<Category>(context);
+    final category = Provider.of<Category>(context, listen: false);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),

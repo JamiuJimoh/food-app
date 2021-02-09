@@ -86,8 +86,9 @@ class _OrderItemState extends State<OrderItem> {
                                         ),
                                         child: ListTile(
                                           leading: CircleAvatar(
-                                            backgroundImage:
-                                                AssetImage(cartItem.imageUrl),
+                                            backgroundImage: NetworkImage(
+                                              cartItem.imageUrl,
+                                            ),
                                             radius: 30.0,
                                           ),
                                           title: Text(

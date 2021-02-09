@@ -7,7 +7,6 @@ class Meals with ChangeNotifier {
   List<Meal> _mealsList = MealsData().loadedMeals;
 
   List<Meal> get items {
-    
     return [..._mealsList];
   }
 
@@ -27,8 +26,6 @@ class Meals with ChangeNotifier {
     return favoriteMeals.length;
   }
 
-  
-
   int get mealsListLength {
     return _mealsList.length;
   }
@@ -37,8 +34,20 @@ class Meals with ChangeNotifier {
     return _mealsList.firstWhere((meal) => meal.id == id);
   }
 
-  void addProduct() {
-    // _mealsList.add();
+  void addProduct(Meal meal) {
+    final newMeal = Meal(
+      id: DateTime.now().toString(),
+      categories: meal.categories,
+      title: meal.title,
+      description: meal.description,
+      price: meal.price,
+      imageUrl: meal.imageUrl,
+      timeToPrep: meal.timeToPrep,
+      vendorInfo: meal.vendorInfo,
+      distance: meal.distance,
+      location: meal.location,
+    );
+    _mealsList.insert(0, newMeal);
     notifyListeners();
   }
 
