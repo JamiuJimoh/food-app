@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final Function(String) onFieldSubmitted;
   final Function(String) onSaved;
   final Function(String) validator;
+  final String initialValue;
 
   const CustomTextField({
     @required this.label,
@@ -27,6 +28,7 @@ class CustomTextField extends StatelessWidget {
     this.onFieldSubmitted,
     this.onSaved,
     this.validator,
+    this.initialValue,
   });
 
   OutlineInputBorder _outlineInputBorder(Color color) {
@@ -43,6 +45,7 @@ class CustomTextField extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: 15.0, bottom: paddingBottom ?? 15.0),
       child: TextFormField(
+        initialValue: initialValue,
         validator: validator,
         onSaved: onSaved,
         onFieldSubmitted: onFieldSubmitted,

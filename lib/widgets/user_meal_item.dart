@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/providers/meals.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../screens/edit_user_meal_screen.dart';
+import 'custom_dialog.dart';
 
 class UserMealItem extends StatefulWidget {
   final String title;
@@ -49,7 +52,43 @@ class _UserMealItemState extends State<UserMealItem> {
                     Icons.delete,
                     size: 23,
                   ),
-                  onPressed: () => print('delete'),
+                  // onPressed: () => Provider.of<Meals>(context, listen: false)
+                  //     .deleteMeal(widget.id),
+
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) {
+                        return CustomDialog(
+                          title: 'Warning',
+                          description:
+                              'Are you sure you want to delete this item?',
+                          image: AssetImage('assets/images/caution.gif'),
+                          clickable: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Yes',
+                                style: kDescTextStyle.copyWith(
+                                    color: kAccentColor3),
+                              ),
+                              const SizedBox(width: 5.0),
+                              Icon(
+                                Icons.delete_forever,
+                                color: kAccentColor3,
+                                size: 17.0,
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            Provider.of<Meals>(context, listen: false)
+                                .deleteMeal(widget.id);
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      },
+                    );
+                  },
                 ),
                 const SizedBox(width: 20.0),
                 IconButton(
@@ -57,8 +96,8 @@ class _UserMealItemState extends State<UserMealItem> {
                     Icons.edit,
                     size: 23,
                   ),
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed(EditUserMealScreen.id, arguments: widget.id),
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(EditUserMealScreen.id, arguments: widget.id),
                 ),
               ],
             ),

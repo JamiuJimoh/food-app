@@ -34,7 +34,7 @@ class Meals with ChangeNotifier {
     return _mealsList.firstWhere((meal) => meal.id == id);
   }
 
-  void addProduct(Meal meal) {
+  void addMeal(Meal meal) {
     final newMeal = Meal(
       id: DateTime.now().toString(),
       categories: meal.categories,
@@ -53,6 +53,21 @@ class Meals with ChangeNotifier {
 
   void removeItem(String mealId) {
     _mealsList.remove(mealId);
+    notifyListeners();
+  }
+
+  void updateMeal(String id, Meal newMeal) {
+    final mealIndex = _mealsList.indexWhere((meal) => meal.id == id);
+    if (mealIndex >= 0) {
+      _mealsList[mealIndex] = newMeal;
+      notifyListeners();
+    } else {
+      print('no meal with the given index found');
+    }
+  }
+
+  void deleteMeal(String id) {
+    _mealsList.removeWhere((meal) => meal.id == id);
     notifyListeners();
   }
 }

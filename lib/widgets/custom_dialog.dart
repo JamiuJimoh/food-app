@@ -53,6 +53,7 @@ class CustomDialog extends StatelessWidget {
                 Text(
                   description,
                   style: kDescTextStyle,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24.0),
                 Align(

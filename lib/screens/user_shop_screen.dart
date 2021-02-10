@@ -10,7 +10,7 @@ class UserShopScreen extends StatelessWidget {
   static const String id = 'user_products_screen';
   @override
   Widget build(BuildContext context) {
-    final mealsData = Provider.of<Meals>(context, listen: false);
+    final mealsData = Provider.of<Meals>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Meals'),
