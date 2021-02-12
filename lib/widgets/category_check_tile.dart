@@ -8,7 +8,7 @@ class CategoryCheckTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final category = Provider.of<Category>(context, listen: false);
-    
+
     return Padding(
       padding: const EdgeInsets.only(top: 1.0),
       child: ListTile(

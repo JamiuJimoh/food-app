@@ -11,7 +11,7 @@ class SelectedCategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryId = ModalRoute.of(context).settings.arguments as String;
     final categoriesData = Provider.of<Categories>(context);
-    final category = categoriesData.findById(categoryId);
+    final category = categoriesData.findCatMealsById(categoryId);
     final mealsData = Provider.of<Meals>(context);
     final meals = mealsData.items;
     final selectedCategory = categoriesData.selectedCategory(meals, categoryId);

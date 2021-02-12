@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class Meal with ChangeNotifier {
   final String id;
-  final List<String> categories;
   final String title;
   final String description;
   final double price;
@@ -14,6 +13,7 @@ class Meal with ChangeNotifier {
   final Map<String, Object> vendorInfo;
   final double distance;
   final String location;
+  List<Category> categories;
   bool isFavorite;
 
   Meal({
@@ -31,6 +31,10 @@ class Meal with ChangeNotifier {
     this.reviews = 0,
     this.isFavorite = false,
   });
+
+  // void set mealCategories(List<Category> categoriesList) {
+  //   categories = categoriesList;
+  // }
 
   void toggleFavoriteStatus() {
     isFavorite = !isFavorite;

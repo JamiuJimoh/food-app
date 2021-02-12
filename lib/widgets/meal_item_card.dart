@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/meal.dart';
+import '../widgets/widgets.dart';
+import '../providers/providers.dart';
 import '../screens/meal_detail_screen.dart';
 import '../constants.dart';
-import 'rounded_icon_button.dart';
 
 class MealItemCard extends StatelessWidget {
   final bool isPopular;
@@ -18,7 +17,10 @@ class MealItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mealsData = Provider.of<Meals>(context, listen: false);
     final meal = Provider.of<Meal>(context, listen: false);
+    final categories = Provider.of<Categories>(context, listen: false);
+    // mealsData.setIsMealCatTrue(meal.id, categories);
 
     return BorderedContainer(
       childWidget: Container(

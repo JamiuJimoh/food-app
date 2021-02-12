@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/providers/meal.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/categories.dart';
@@ -15,6 +16,8 @@ class CategoriesListBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoriesData = Provider.of<Categories>(context, listen: false);
     final categories = categoriesData.categoriesList;
+
+    print(categories);
 
     return ChangeNotifierProvider.value(
       value: categories[index],

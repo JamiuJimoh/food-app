@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/providers/cart.dart';
+import 'package:food_delivery/providers/categories.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -45,7 +46,7 @@ class MealsOverviewScreen extends StatelessWidget {
               ),
             ],
           ),
-        CategoriesSection(),
+          CategoriesSection(),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(18.0),
@@ -105,5 +106,3 @@ class MealsOverviewScreen extends StatelessWidget {
     );
   }
 }
-
-

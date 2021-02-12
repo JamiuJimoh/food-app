@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/data.dart';
 
+import 'categories.dart';
+import 'category.dart';
 import 'meal.dart';
 
 class Meals with ChangeNotifier {
@@ -17,6 +19,31 @@ class Meals with ChangeNotifier {
 
     return newMealsList;
   }
+
+  // void setMealPickedCat(List<Category> categories, List<String> pickedMealCatId, String mealId) {
+  //   for(var meal in _mealsList){
+  //     if(meal.id==mealId){
+
+  //     for(var category in categories){
+  //       // category.id==meal.categories
+  //     }
+  //     }
+  //   }
+  // }
+
+  // void setPickedMealCat(List<String> pickedMealCategoryIds, Categories categories) {
+  //   for(var mealCategoryId in pickedMealCategoryIds){
+  //     categories.findById(mealCategoryId).switchMealCatStatusTrue();
+  //   }
+  // }
+
+  // void setIsMealCatTrue(String mealId, Categories categories) {
+  //   final meal=_mealsList.firstWhere((meal) => meal.id == mealId);
+  //   for (var mealCategoryId in meal.categories) {
+  //     categories.findById(mealCategoryId).switchMealCatStatusTrue();
+  //   }
+  //   notifyListeners();
+  // }
 
   List<Meal> get favoriteMeals {
     return _mealsList.where((mealItem) => mealItem.isFavorite).toList();

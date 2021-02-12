@@ -13,8 +13,17 @@ class Category with ChangeNotifier {
     this.isMealCategory = false,
   });
 
+  void switchMealCatStatusTrue() {
+    isMealCategory = true;
+    notifyListeners();
+  }
+
   void toggleIsMealCategoryStatus() {
     isMealCategory = !isMealCategory;
     notifyListeners();
+  }
+
+  toString() {
+    return '$id === $title === $isMealCategory';
   }
 }

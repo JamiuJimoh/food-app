@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../mixins/validation_mixin.dart';
 import '../providers/providers.dart';
 import '../constants.dart';
 import '../widgets/widgets.dart';
@@ -11,14 +12,15 @@ class EditUserMealScreen extends StatefulWidget {
   _EditUserMealScreenState createState() => _EditUserMealScreenState();
 }
 
-class _EditUserMealScreenState extends State<EditUserMealScreen> {
+class _EditUserMealScreenState extends State<EditUserMealScreen>
+    with ValidationMixin {
   final _imageUrlController = TextEditingController();
   final _imageUrlFocusNode = FocusNode();
   final _form =
       GlobalKey<FormState>(); //to get direct access to the form widget.
 
   var _isInit = true;
-  List<String> _mealPickedCategoryId = [];
+  List<Category> _categoriesData = [];
 
   var _editedMeal = Meal(
     id: null,
@@ -53,13 +55,13 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
 
   @override
   void didChangeDependencies() {
+    final meals = Provider.of<Meals>(context, listen: false);
     if (_isInit) {
       // _isInit is used so that this doesn't run to often,
       final mealId = ModalRoute.of(context).settings.arguments as String;
       if (mealId != null) {
         //To override the initial values of the textFormFields which are empty by default to be the value of the meal clicked to edit.
-        _editedMeal =
-            Provider.of<Meals>(context, listen: false).findById(mealId);
+        _editedMeal = meals.findById(mealId);
         _initValues = {
           'title': _editedMeal.title,
           'description': _editedMeal.description,
@@ -69,10 +71,14 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
           'timeToPrep': _editedMeal.timeToPrep.toString(),
           'distance': _editedMeal.distance.toString(),
           'location': _editedMeal.location,
-          'categories': [],
+          'categories': _editedMeal.categories,
           'vendorInfo': {},
         };
         _imageUrlController.text = _editedMeal.imageUrl;
+
+        // meals.setPickedMealCat(_initValues['categories'],
+        //     Provider.of<Categories>(context, listen: false));
+        print(_initValues['categories']);
       }
     }
     _isInit = false;
@@ -113,13 +119,17 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
     } else {
       Provider.of<Meals>(context, listen: false).addMeal(_editedMeal);
     }
+
+    print('<==> _categoriesData === ${_categoriesData} <==>');
+    print('***********************************************');
+    print('<==> editedmealCat === ${_editedMeal.categories} <==>');
     Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final categoriesData = Provider.of<Categories>(context, listen: false);
-    _mealPickedCategoryId = categoriesData.mealPickedCategoryId;
+    _categoriesData = categoriesData.categoriesList;
 
     return Scaffold(
       appBar: AppBar(),
@@ -146,7 +156,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                       isFavorite: _editedMeal.isFavorite,
                       title: value,
                       price: _editedMeal.price,
-                      categories: _mealPickedCategoryId,
+                      categories: _editedMeal.categories,
                       description: _editedMeal.description,
                       imageUrl: _editedMeal.imageUrl,
                       timeToPrep: _editedMeal.timeToPrep,
@@ -155,12 +165,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                       location: _editedMeal.location,
                     );
                   },
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please provide a name for your meal!';
-                    }
-                    return null;
-                  },
+                  validator: validateMealName,
                 ),
 
                 /////// MEAL DESCRIPTION TEXTFIELD ////////
@@ -177,7 +182,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                       isFavorite: _editedMeal.isFavorite,
                       title: _editedMeal.title,
                       price: _editedMeal.price,
-                      categories: _mealPickedCategoryId,
+                      categories: _editedMeal.categories,
                       description: value,
                       imageUrl: _editedMeal.imageUrl,
                       timeToPrep: _editedMeal.timeToPrep,
@@ -186,15 +191,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                       location: _editedMeal.location,
                     );
                   },
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please provide a description for your meal!';
-                    }
-                    if (value.length < 10) {
-                      return 'Must be at least 10 characters long';
-                    }
-                    return null;
-                  },
+                  validator: validateMealDesc,
                 ),
                 Row(
                   children: [
@@ -215,7 +212,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                             isFavorite: _editedMeal.isFavorite,
                             title: _editedMeal.title,
                             price: double.parse(value),
-                            categories: _mealPickedCategoryId,
+                            categories: _editedMeal.categories,
                             description: _editedMeal.description,
                             imageUrl: _editedMeal.imageUrl,
                             timeToPrep: _editedMeal.timeToPrep,
@@ -224,18 +221,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                             location: _editedMeal.location,
                           );
                         },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter the price';
-                          }
-                          if (double.tryParse(value) == null) {
-                            return 'Must be a valid number';
-                          }
-                          if (double.parse(value) <= 0) {
-                            return 'Must be greater than zero';
-                          }
-                          return null;
-                        },
+                        validator: validateMealPrice,
                       ),
                     ),
                     const SizedBox(width: 20.0),
@@ -256,7 +242,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                             isFavorite: _editedMeal.isFavorite,
                             title: _editedMeal.title,
                             price: _editedMeal.price,
-                            categories: _mealPickedCategoryId,
+                            categories: _editedMeal.categories,
                             description: _editedMeal.description,
                             imageUrl: _editedMeal.imageUrl,
                             timeToPrep: int.parse(value),
@@ -265,23 +251,15 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                             location: _editedMeal.location,
                           );
                         },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter the time';
-                          }
-                          if (double.tryParse(value) == null) {
-                            return 'Must be a valid number';
-                          }
-                          if (double.parse(value) <= 0) {
-                            return 'Must be greater than zero';
-                          }
-                          return null;
-                        },
+                        validator: validateMealTimeToPrep,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 10.0),
+
+                /////// CATEGORIES CHECKBOXES ////////
+
                 Text(
                   'Select the meal categories',
                   style: kDescTextStyle,
@@ -292,12 +270,17 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                   child: ListView.builder(
                     itemCount: categoriesData.catListLength,
                     itemBuilder: (ctx, i) => CategoriesListBuilder(
+                      // initialValue: _initValues['categories'],
+                      // meal: _editedMeal,
                       index: i,
                       childWidget: CategoryCheckTile(),
                     ),
                   ),
                 ),
                 const SizedBox(height: 20.0),
+
+                /////// MEAL IMAGE URL TEXTFIELD ////////
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -330,9 +313,6 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                     const SizedBox(width: 15.0),
                     Expanded(
                       flex: 4,
-
-                      /////// MEAL IMAGE URL TEXTFIELD ////////
-
                       child: CustomTextField(
                         initialValue: null,
                         paddingBottom: 0.0,
@@ -349,7 +329,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                             isFavorite: _editedMeal.isFavorite,
                             title: _editedMeal.title,
                             price: _editedMeal.price,
-                            categories: _mealPickedCategoryId,
+                            categories: _editedMeal.categories,
                             description: _editedMeal.description,
                             imageUrl: value,
                             timeToPrep: _editedMeal.timeToPrep,
@@ -358,21 +338,7 @@ class _EditUserMealScreenState extends State<EditUserMealScreen> {
                             location: _editedMeal.location,
                           );
                         },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter an image URl';
-                          }
-                          if (!value.startsWith('http') &&
-                              !value.startsWith('https')) {
-                            return 'Please enter a valid URL';
-                          }
-                          if (!value.endsWith('.png') &&
-                              !value.startsWith('.jpeg') &&
-                              !value.startsWith('.jpg')) {
-                            return 'Please enter a valid image URL';
-                          }
-                          return null;
-                        },
+                        validator: validateMealImageURL,
                       ),
                     ),
                   ],
