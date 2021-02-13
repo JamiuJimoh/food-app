@@ -1,14 +1,9 @@
-import 'package:food_delivery/data/categories_data.dart';
-import 'package:food_delivery/providers/categories.dart';
-import 'package:food_delivery/providers/category.dart';
-
 import '../providers/meal.dart';
 
 class MealsData {
   final List<Meal> _loadedMeals = [
     Meal(
       id: 'p1',
-      categories: [],
       title: 'Meat',
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.',
@@ -24,7 +19,6 @@ class MealsData {
     ),
     Meal(
       id: 'p2',
-      categories: [],
       title: 'Soup',
       description:
           'Nulla quis lorem ut libero malesuada feugiat. Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -40,7 +34,6 @@ class MealsData {
     ),
     Meal(
       id: 'p3',
-      categories: [],
       title: 'Yam',
       description:
           'Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Nulla porttitor accumsan tincidunt. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
@@ -56,7 +49,6 @@ class MealsData {
     ),
     Meal(
       id: 'p4',
-      categories: [],
       title: 'Pasta',
       description:
           'Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. , porttitor at Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur arcu erat, accumsan id imperdiet et, porttitor at Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur arcu erat, accumsan id imperdiet et, porttitor at rutrum congue leo eget malesuada.',
@@ -72,7 +64,6 @@ class MealsData {
     ),
     Meal(
       id: 'p5',
-      categories: [],
       title: 'Fruits Salad',
       description:
           'Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat. Nulla porttitor accumsan tincidunt. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi',

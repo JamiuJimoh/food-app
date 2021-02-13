@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../mixins/interactive_dialog_mixin.dart';
 import '../constants.dart';
 import '../widgets/widgets.dart';
 import '../providers/providers.dart';
@@ -13,7 +14,8 @@ class MealDetailScreen extends StatefulWidget {
   _MealDetailScreenState createState() => _MealDetailScreenState();
 }
 
-class _MealDetailScreenState extends State<MealDetailScreen> {
+class _MealDetailScreenState extends State<MealDetailScreen>
+    with InteractiveDialogMixin {
   double _expandedHeight;
 
   @override
@@ -164,33 +166,9 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
             loadedMeal.title,
             loadedMeal.imageUrl,
           );
-          showDialog(
-            context: context,
-            builder: (ctx) {
-              return CustomDialog(
-                title: 'Success',
-                description: '1 item added to cart.',
-                image: AssetImage('assets/images/tick.gif'),
-                clickable: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Goto Cart',
-                      style: kDescTextStyle.copyWith(color: kAccentColor3),
-                    ),
-                    const SizedBox(width: 5.0),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: kAccentColor3,
-                      size: 17.0,
-                    ),
-                  ],
-                ),
-                onPressed: () =>
-                    Navigator.of(context).pushReplacementNamed(CartScreen.id),
-              );
-            },
-          );
+          successDialog(context, () {
+            Navigator.of(context).pushReplacementNamed(CartScreen.id);
+          });
         },
       ),
     );

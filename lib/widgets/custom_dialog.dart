@@ -41,7 +41,7 @@ class CustomDialog extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 28.0),
+            padding: const EdgeInsets.only(top: 15.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -55,7 +55,7 @@ class CustomDialog extends StatelessWidget {
                   style: kDescTextStyle,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 24.0),
+                const SizedBox(height: 20.0),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: TextButton(
@@ -77,7 +77,7 @@ class CustomDialog extends StatelessWidget {
           right: 14.0,
           child: CircleAvatar(
             backgroundColor: kSecondaryColor,
-            radius: 75.0,
+            radius: 65.0,
             child: Stack(
               children: [
                 CircleAvatar(

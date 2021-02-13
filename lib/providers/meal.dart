@@ -13,12 +13,10 @@ class Meal with ChangeNotifier {
   final Map<String, Object> vendorInfo;
   final double distance;
   final String location;
-  List<Category> categories;
   bool isFavorite;
 
   Meal({
     @required this.id,
-    @required this.categories,
     @required this.title,
     @required this.description,
     @required this.price,

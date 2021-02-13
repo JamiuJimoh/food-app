@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../mixins/validation_mixin.dart';
+import '../mixins/mixins.dart';
 import '../providers/providers.dart';
 import '../constants.dart';
 import '../widgets/widgets.dart';
@@ -13,18 +13,17 @@ class EditUserMealScreen extends StatefulWidget {
 }
 
 class _EditUserMealScreenState extends State<EditUserMealScreen>
-    with ValidationMixin {
+    with ValidationMixin, InteractiveDialogMixin {
   final _imageUrlController = TextEditingController();
   final _imageUrlFocusNode = FocusNode();
   final _form =
       GlobalKey<FormState>(); //to get direct access to the form widget.
 
   var _isInit = true;
-  List<Category> _categoriesData = [];
+  var _isLoading = false;
 
   var _editedMeal = Meal(
     id: null,
-    categories: [],
     title: '',
     description: '',
     price: 0.0,
@@ -71,13 +70,10 @@ class _EditUserMealScreenState extends State<EditUserMealScreen>
           'timeToPrep': _editedMeal.timeToPrep.toString(),
           'distance': _editedMeal.distance.toString(),
           'location': _editedMeal.location,
-          'categories': _editedMeal.categories,
           'vendorInfo': {},
         };
         _imageUrlController.text = _editedMeal.imageUrl;
 
-        // meals.setPickedMealCat(_initValues['categories'],
-        //     Provider.of<Categories>(context, listen: false));
         print(_initValues['categories']);
       }
     }
@@ -106,113 +102,70 @@ class _EditUserMealScreenState extends State<EditUserMealScreen>
     }
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();
     if (!isValid) {
       return;
     }
     _form.currentState.save();
 
+    setState(() {
+      _isLoading = true;
+    });
+
     if (_editedMeal.id != null) {
       Provider.of<Meals>(context, listen: false)
           .updateMeal(_editedMeal.id, _editedMeal);
+      Navigator.of(context).pop();
+      setState(() {
+        _isLoading = false;
+      });
     } else {
-      Provider.of<Meals>(context, listen: false).addMeal(_editedMeal);
+      try {
+        await Provider.of<Meals>(context, listen: false).addMeal(_editedMeal);
+      } catch (error) {
+        await warningDialog(context, () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        }, 'Failed', 'Oops, Something went wrong.', 'Close', Icons.close);
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pop();
+      }
     }
-
-    print('<==> _categoriesData === ${_categoriesData} <==>');
-    print('***********************************************');
-    print('<==> editedmealCat === ${_editedMeal.categories} <==>');
-    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    final categoriesData = Provider.of<Categories>(context, listen: false);
-    _categoriesData = categoriesData.categoriesList;
-
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(25.0, 15.0, 25.0, 45.0),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _form, //to establish a connection with the connection
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.fromLTRB(25.0, 15.0, 25.0, 45.0),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _form, //to establish a connection with the connection
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /////// MEAL TITLE TEXTFIELD ////////
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /////// MEAL TITLE TEXTFIELD ////////
 
-                CustomTextField(
-                  initialValue: _initValues['title'],
-                  isPasswordInputField: false,
-                  label: 'Meal name',
-                  textInputType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                  onSaved: (value) {
-                    _editedMeal = Meal(
-                      id: _editedMeal.id,
-                      isFavorite: _editedMeal.isFavorite,
-                      title: value,
-                      price: _editedMeal.price,
-                      categories: _editedMeal.categories,
-                      description: _editedMeal.description,
-                      imageUrl: _editedMeal.imageUrl,
-                      timeToPrep: _editedMeal.timeToPrep,
-                      vendorInfo: _editedMeal.vendorInfo,
-                      distance: _editedMeal.distance,
-                      location: _editedMeal.location,
-                    );
-                  },
-                  validator: validateMealName,
-                ),
-
-                /////// MEAL DESCRIPTION TEXTFIELD ////////
-
-                CustomTextField(
-                  initialValue: _initValues['description'],
-                  isPasswordInputField: false,
-                  label: 'Meal description',
-                  maxLines: 3,
-                  textInputType: TextInputType.multiline,
-                  onSaved: (value) {
-                    _editedMeal = Meal(
-                      id: _editedMeal.id,
-                      isFavorite: _editedMeal.isFavorite,
-                      title: _editedMeal.title,
-                      price: _editedMeal.price,
-                      categories: _editedMeal.categories,
-                      description: value,
-                      imageUrl: _editedMeal.imageUrl,
-                      timeToPrep: _editedMeal.timeToPrep,
-                      vendorInfo: _editedMeal.vendorInfo,
-                      distance: _editedMeal.distance,
-                      location: _editedMeal.location,
-                    );
-                  },
-                  validator: validateMealDesc,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      // flex: 1,
-
-                      /////// MEAL PRICE TEXTFIELD ////////
-
-                      child: CustomTextField(
-                        initialValue: _initValues['price'],
+                      CustomTextField(
+                        initialValue: _initValues['title'],
                         isPasswordInputField: false,
-                        label: 'Price',
-                        textInputType: TextInputType.number,
+                        label: 'Meal name',
+                        textInputType: TextInputType.text,
                         textInputAction: TextInputAction.next,
                         onSaved: (value) {
                           _editedMeal = Meal(
                             id: _editedMeal.id,
                             isFavorite: _editedMeal.isFavorite,
-                            title: _editedMeal.title,
-                            price: double.parse(value),
-                            categories: _editedMeal.categories,
+                            title: value,
+                            price: _editedMeal.price,
                             description: _editedMeal.description,
                             imageUrl: _editedMeal.imageUrl,
                             timeToPrep: _editedMeal.timeToPrep,
@@ -221,133 +174,165 @@ class _EditUserMealScreenState extends State<EditUserMealScreen>
                             location: _editedMeal.location,
                           );
                         },
-                        validator: validateMealPrice,
+                        validator: validateMealName,
                       ),
-                    ),
-                    const SizedBox(width: 20.0),
-                    Expanded(
-                      // flex: 2,
 
-                      /////// TIME TO PREP MEAL TEXTFIELD ////////
+                      /////// MEAL DESCRIPTION TEXTFIELD ////////
 
-                      child: CustomTextField(
-                        initialValue: _initValues['timeToPrep'],
+                      CustomTextField(
+                        initialValue: _initValues['description'],
                         isPasswordInputField: false,
-                        label: 'Time to prep (minutes)',
-                        textInputType: TextInputType.number,
-                        textInputAction: TextInputAction.next,
+                        label: 'Meal description',
+                        maxLines: 3,
+                        textInputType: TextInputType.multiline,
                         onSaved: (value) {
                           _editedMeal = Meal(
                             id: _editedMeal.id,
                             isFavorite: _editedMeal.isFavorite,
                             title: _editedMeal.title,
                             price: _editedMeal.price,
-                            categories: _editedMeal.categories,
-                            description: _editedMeal.description,
+                            description: value,
                             imageUrl: _editedMeal.imageUrl,
-                            timeToPrep: int.parse(value),
+                            timeToPrep: _editedMeal.timeToPrep,
                             vendorInfo: _editedMeal.vendorInfo,
                             distance: _editedMeal.distance,
                             location: _editedMeal.location,
                           );
                         },
-                        validator: validateMealTimeToPrep,
+                        validator: validateMealDesc,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10.0),
+                      Row(
+                        children: [
+                          Expanded(
+                            // flex: 1,
 
-                /////// CATEGORIES CHECKBOXES ////////
+                            /////// MEAL PRICE TEXTFIELD ////////
 
-                Text(
-                  'Select the meal categories',
-                  style: kDescTextStyle,
-                ),
-                const SizedBox(height: 10.0),
-                SizedBox(
-                  height: 200.0,
-                  child: ListView.builder(
-                    itemCount: categoriesData.catListLength,
-                    itemBuilder: (ctx, i) => CategoriesListBuilder(
-                      // initialValue: _initValues['categories'],
-                      // meal: _editedMeal,
-                      index: i,
-                      childWidget: CategoryCheckTile(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-
-                /////// MEAL IMAGE URL TEXTFIELD ////////
-
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: kAccentColor,
+                            child: CustomTextField(
+                              initialValue: _initValues['price'],
+                              isPasswordInputField: false,
+                              label: 'Price',
+                              textInputType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              onSaved: (value) {
+                                _editedMeal = Meal(
+                                  id: _editedMeal.id,
+                                  isFavorite: _editedMeal.isFavorite,
+                                  title: _editedMeal.title,
+                                  price: double.parse(value),
+                                  description: _editedMeal.description,
+                                  imageUrl: _editedMeal.imageUrl,
+                                  timeToPrep: _editedMeal.timeToPrep,
+                                  vendorInfo: _editedMeal.vendorInfo,
+                                  distance: _editedMeal.distance,
+                                  location: _editedMeal.location,
+                                );
+                              },
+                              validator: validateMealPrice,
+                            ),
                           ),
-                        ),
-                        child: _imageUrlController.text.isEmpty
-                            ? Center(
-                                child: Text(
-                                  'Enter a URL',
-                                  style: kDescTextStyle,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            : FittedBox(
-                                child: Image.network(
-                                  _imageUrlController.text,
-                                  fit: BoxFit.cover,
+                          const SizedBox(width: 20.0),
+                          Expanded(
+                            // flex: 2,
+
+                            /////// TIME TO PREP MEAL TEXTFIELD ////////
+
+                            child: CustomTextField(
+                              initialValue: _initValues['timeToPrep'],
+                              isPasswordInputField: false,
+                              label: 'Time to prep (minutes)',
+                              textInputType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              onSaved: (value) {
+                                _editedMeal = Meal(
+                                  id: _editedMeal.id,
+                                  isFavorite: _editedMeal.isFavorite,
+                                  title: _editedMeal.title,
+                                  price: _editedMeal.price,
+                                  description: _editedMeal.description,
+                                  imageUrl: _editedMeal.imageUrl,
+                                  timeToPrep: int.parse(value),
+                                  vendorInfo: _editedMeal.vendorInfo,
+                                  distance: _editedMeal.distance,
+                                  location: _editedMeal.location,
+                                );
+                              },
+                              validator: validateMealTimeToPrep,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 20.0),
+
+                      /////// MEAL IMAGE URL TEXTFIELD ////////
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Container(
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: kAccentColor,
                                 ),
                               ),
+                              child: _imageUrlController.text.isEmpty
+                                  ? Center(
+                                      child: Text(
+                                        'Enter a URL',
+                                        style: kDescTextStyle,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+                                  : FittedBox(
+                                      child: Image.network(
+                                        _imageUrlController.text,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                            ),
+                          ),
+                          const SizedBox(width: 15.0),
+                          Expanded(
+                            flex: 4,
+                            child: CustomTextField(
+                              initialValue: null,
+                              paddingBottom: 0.0,
+                              isPasswordInputField: false,
+                              label: 'Image URL',
+                              textInputType: TextInputType.url,
+                              textInputAction: TextInputAction.done,
+                              controller: _imageUrlController,
+                              focusNode: _imageUrlFocusNode,
+                              onFieldSubmitted: (_) => _saveForm(),
+                              onSaved: (value) {
+                                _editedMeal = Meal(
+                                  id: _editedMeal.id,
+                                  isFavorite: _editedMeal.isFavorite,
+                                  title: _editedMeal.title,
+                                  price: _editedMeal.price,
+                                  description: _editedMeal.description,
+                                  imageUrl: value,
+                                  timeToPrep: _editedMeal.timeToPrep,
+                                  vendorInfo: _editedMeal.vendorInfo,
+                                  distance: _editedMeal.distance,
+                                  location: _editedMeal.location,
+                                );
+                              },
+                              validator: validateMealImageURL,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(width: 15.0),
-                    Expanded(
-                      flex: 4,
-                      child: CustomTextField(
-                        initialValue: null,
-                        paddingBottom: 0.0,
-                        isPasswordInputField: false,
-                        label: 'Image URL',
-                        textInputType: TextInputType.url,
-                        textInputAction: TextInputAction.done,
-                        controller: _imageUrlController,
-                        focusNode: _imageUrlFocusNode,
-                        onFieldSubmitted: (_) => _saveForm(),
-                        onSaved: (value) {
-                          _editedMeal = Meal(
-                            id: _editedMeal.id,
-                            isFavorite: _editedMeal.isFavorite,
-                            title: _editedMeal.title,
-                            price: _editedMeal.price,
-                            categories: _editedMeal.categories,
-                            description: _editedMeal.description,
-                            imageUrl: value,
-                            timeToPrep: _editedMeal.timeToPrep,
-                            vendorInfo: _editedMeal.vendorInfo,
-                            distance: _editedMeal.distance,
-                            location: _editedMeal.location,
-                          );
-                        },
-                        validator: validateMealImageURL,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: kAccentColor3,
         onPressed: _saveForm,

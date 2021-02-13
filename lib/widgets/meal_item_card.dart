@@ -17,10 +17,7 @@ class MealItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mealsData = Provider.of<Meals>(context, listen: false);
     final meal = Provider.of<Meal>(context, listen: false);
-    final categories = Provider.of<Categories>(context, listen: false);
-    // mealsData.setIsMealCatTrue(meal.id, categories);
 
     return BorderedContainer(
       childWidget: Container(

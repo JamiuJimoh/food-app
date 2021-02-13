@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:food_delivery/data/data.dart';
+import 'dart:convert';
 
-import 'categories.dart';
-import 'category.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../data/data.dart';
 import 'meal.dart';
 
 class Meals with ChangeNotifier {
@@ -20,31 +21,6 @@ class Meals with ChangeNotifier {
     return newMealsList;
   }
 
-  // void setMealPickedCat(List<Category> categories, List<String> pickedMealCatId, String mealId) {
-  //   for(var meal in _mealsList){
-  //     if(meal.id==mealId){
-
-  //     for(var category in categories){
-  //       // category.id==meal.categories
-  //     }
-  //     }
-  //   }
-  // }
-
-  // void setPickedMealCat(List<String> pickedMealCategoryIds, Categories categories) {
-  //   for(var mealCategoryId in pickedMealCategoryIds){
-  //     categories.findById(mealCategoryId).switchMealCatStatusTrue();
-  //   }
-  // }
-
-  // void setIsMealCatTrue(String mealId, Categories categories) {
-  //   final meal=_mealsList.firstWhere((meal) => meal.id == mealId);
-  //   for (var mealCategoryId in meal.categories) {
-  //     categories.findById(mealCategoryId).switchMealCatStatusTrue();
-  //   }
-  //   notifyListeners();
-  // }
-
   List<Meal> get favoriteMeals {
     return _mealsList.where((mealItem) => mealItem.isFavorite).toList();
   }
@@ -61,21 +37,41 @@ class Meals with ChangeNotifier {
     return _mealsList.firstWhere((meal) => meal.id == id);
   }
 
-  void addMeal(Meal meal) {
-    final newMeal = Meal(
-      id: DateTime.now().toString(),
-      categories: meal.categories,
-      title: meal.title,
-      description: meal.description,
-      price: meal.price,
-      imageUrl: meal.imageUrl,
-      timeToPrep: meal.timeToPrep,
-      vendorInfo: meal.vendorInfo,
-      distance: meal.distance,
-      location: meal.location,
-    );
-    _mealsList.insert(0, newMeal);
-    notifyListeners();
+  Future<void> addMeal(Meal meal) async {
+    const url = 'https://matlyan-default-rtdb.firebaseio.com/meals.json';
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'title': meal.title,
+          'description': meal.description,
+          'price': meal.price,
+          'imageUrl': meal.imageUrl,
+          'timeToPrep': meal.timeToPrep,
+          'vendorInfo': meal.vendorInfo,
+          'distance': meal.distance,
+          'location': meal.location,
+          'isFavorite': meal.isFavorite
+        }),
+      );
+
+      final newMeal = Meal(
+        id: json.decode(response.body)['name'],
+        title: meal.title,
+        description: meal.description,
+        price: meal.price,
+        imageUrl: meal.imageUrl,
+        timeToPrep: meal.timeToPrep,
+        vendorInfo: meal.vendorInfo,
+        distance: meal.distance,
+        location: meal.location,
+      );
+      _mealsList.insert(0, newMeal);
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
   }
 
   void removeItem(String mealId) {

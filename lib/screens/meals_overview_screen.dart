@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/providers/cart.dart';
-import 'package:food_delivery/providers/categories.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
-import '../providers/meals.dart';
+import '../providers/providers.dart';
 import '../widgets/widgets.dart';
 import 'cart_screen.dart';
 
@@ -46,7 +44,6 @@ class MealsOverviewScreen extends StatelessWidget {
               ),
             ],
           ),
-          CategoriesSection(),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(18.0),

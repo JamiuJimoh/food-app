@@ -31,6 +31,7 @@ dependencies:
   pedantic: ^1.9.2
   intl: ^0.16.1
   provider: ^4.3.2+3
+  http: ^0.12.2
 
 dev_dependencies:
   flutter_test:
