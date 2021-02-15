@@ -13,9 +13,15 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => Meals(),
+          create: (ctx) => Auth(),
         ),
-        
+        ChangeNotifierProxyProvider<Auth, Meals>(
+          update: (ctx, auth, previousMeals) => Meals(
+            auth.token,
+            previousMeals == null ? [] : previousMeals.items,
+          ),
+          create: null,
+        ),
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
         ),
@@ -23,23 +29,24 @@ class MyApp extends StatelessWidget {
           create: (ctx) => Orders(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Food delivery app',
-        theme: AppTheme.primaryAppTheme,
-        debugShowCheckedModeBanner: false,
-        initialRoute: TabsScreen.id,
-        routes: {
-          TabsScreen.id: (context) => TabsScreen(),
-          OnboardingScreen.id: (context) => OnboardingScreen(),
-          LoginScreen.id: (context) => LoginScreen(),
-          SignupScreen.id: (context) => SignupScreen(),
-          MealsOverviewScreen.id: (context) => MealsOverviewScreen(),
-          MealDetailScreen.id: (context) => MealDetailScreen(),
-          CartScreen.id: (context) => CartScreen(),
-          OrdersScreen.id: (context) => OrdersScreen(),
-          UserShopScreen.id: (context) => UserShopScreen(),
-          EditUserMealScreen.id: (context) => EditUserMealScreen(),
-        },
+      child: Consumer<Auth>(
+        builder: (ctx, auth, _) => MaterialApp(
+          title: 'MatLyan',
+          theme: AppTheme.primaryAppTheme,
+          debugShowCheckedModeBanner: false,
+          home: auth.isAuth ? TabsScreen() : AuthScreen(),
+          routes: {
+            TabsScreen.id: (context) => TabsScreen(),
+            OnboardingScreen.id: (context) => OnboardingScreen(),
+            AuthScreen.id: (context) => AuthScreen(),
+            MealsOverviewScreen.id: (context) => MealsOverviewScreen(),
+            MealDetailScreen.id: (context) => MealDetailScreen(),
+            CartScreen.id: (context) => CartScreen(),
+            OrdersScreen.id: (context) => OrdersScreen(),
+            UserShopScreen.id: (context) => UserShopScreen(),
+            EditUserMealScreen.id: (context) => EditUserMealScreen(),
+          },
+        ),
       ),
     );
   }

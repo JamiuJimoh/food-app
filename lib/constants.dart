@@ -35,6 +35,12 @@ const kScaffoldColorGradient = LinearGradient(
   end: Alignment.center,
 );
 
+const kOnboardImageGradient = LinearGradient(
+  colors: [kScaffoldColor, Color(0x00111328)],
+  begin: Alignment.bottomCenter,
+  end: Alignment.center,
+);
+
 const kAccentColorsGradient = LinearGradient(
   colors: [kAccentColor2, kAccentColor],
   begin: Alignment.bottomLeft,

@@ -114,25 +114,31 @@ class _EditUserMealScreenState extends State<EditUserMealScreen>
     });
 
     if (_editedMeal.id != null) {
-      Provider.of<Meals>(context, listen: false)
-          .updateMeal(_editedMeal.id, _editedMeal);
-      Navigator.of(context).pop();
-      setState(() {
-        _isLoading = false;
-      });
+      try {
+        await Provider.of<Meals>(context, listen: false)
+            .updateMeal(_editedMeal.id, _editedMeal);
+        Navigator.of(context).pop();
+        setState(() {
+          _isLoading = false;
+        });
+      } catch (error) {
+        print(error);
+      }
     } else {
       try {
         await Provider.of<Meals>(context, listen: false).addMeal(_editedMeal);
-      } catch (error) {
-        await warningDialog(context, () {
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
-        }, 'Failed', 'Oops, Something went wrong.', 'Close', Icons.close);
-      } finally {
         setState(() {
           _isLoading = false;
         });
         Navigator.of(context).pop();
+      } catch (error) {
+        await errorDialog(context, () {
+          setState(() {
+            _isLoading = false;
+          });
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        });
       }
     }
   }

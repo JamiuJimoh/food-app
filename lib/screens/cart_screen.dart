@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../mixins/interactive_dialog_mixin.dart';
 import '../widgets/widgets.dart';
 import '../constants.dart';
 import '../providers/orders.dart';
 import '../providers/cart.dart' show Cart;
+import 'orders_screen.dart';
 
 class CartScreen extends StatefulWidget {
   static const String id = 'cart_screen';
@@ -13,15 +15,16 @@ class CartScreen extends StatefulWidget {
   _CartScreenState createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CartScreenState extends State<CartScreen> with InteractiveDialogMixin {
   Cart _cart;
   double _totalAmount;
   double _deliveryFee;
   double _sumTotalAndDelivery;
   int _itemCount;
   var _isEmpty = false;
+  var _isLoading = false;
 
-  void _toggleIsEmpty(int cartListLength) {
+  void _checkIsEmpty(int cartListLength) {
     setState(() {
       if (cartListLength > 0) {
         _isEmpty = false;
@@ -33,7 +36,6 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
     final cart = Provider.of<Cart>(context);
 
     _cart = cart;
@@ -41,11 +43,12 @@ class _CartScreenState extends State<CartScreen> {
     _deliveryFee = cart.generateDeliveryFee;
     _sumTotalAndDelivery = cart.sumTotalAndDelivery(_totalAmount, _deliveryFee);
     _itemCount = cart.itemCount;
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    _toggleIsEmpty(_itemCount);
+    _checkIsEmpty(_itemCount);
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
@@ -80,7 +83,7 @@ class _CartScreenState extends State<CartScreen> {
                         imageUrl: _cart.items.values.toList()[i].imageUrl,
                         price: _cart.items.values.toList()[i].price,
                         quantity: _cart.items.values.toList()[i].quantity,
-                        toggleIsEmpty: () => _toggleIsEmpty(_itemCount),
+                        toggleIsEmpty: () => _checkIsEmpty(_itemCount),
                       ),
                     ),
                   ),
@@ -141,15 +144,38 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         const Spacer(),
                         GradientButton(
+                          childWidget: _isLoading
+                              ? Center(child: CircularProgressIndicator())
+                              : null,
                           context: context,
                           label: 'Order Now',
-                          onTap: () {
-                            Provider.of<Orders>(context, listen: false)
-                                .addOrder(
-                              _cart.items.values.toList(),
-                              _cart.totalAmount,
-                            );
-                            _cart.clear();
+                          onTap: () async {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            try {
+                              await Provider.of<Orders>(context, listen: false)
+                                  .addOrder(
+                                _cart.items.values.toList(),
+                                _cart.totalAmount,
+                              );
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              _cart.clear();
+                              orderSuccessDialog(
+                                context,
+                                () => Navigator.of(context)
+                                    .pushReplacementNamed(OrdersScreen.id),
+                              );
+                            } catch (error) {
+                              errorDialog(context, () {
+                                Navigator.of(context).pop();
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                              });
+                            }
                           },
                           isCurved: true,
                         ),

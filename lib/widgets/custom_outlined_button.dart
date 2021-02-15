@@ -19,12 +19,13 @@ class CustomOutlinedButton extends StatelessWidget {
         style: kOnboardButtonTextStyle,
       ),
       onPressed: onTap,
-      // borderSide: BorderSide(
-      //   color: kAccentColor,
-      // ),
-      // shape: new RoundedRectangleBorder(
-      //   borderRadius: new BorderRadius.circular(30.0),
-      // ),
+      clipBehavior: Clip.hardEdge,
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: kAccentColor),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+      ),
     );
   }
 }

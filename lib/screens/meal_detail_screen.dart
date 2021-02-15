@@ -166,7 +166,7 @@ class _MealDetailScreenState extends State<MealDetailScreen>
             loadedMeal.title,
             loadedMeal.imageUrl,
           );
-          successDialog(context, () {
+          cartSuccessDialog(context, () {
             Navigator.of(context).pushReplacementNamed(CartScreen.id);
           });
         },

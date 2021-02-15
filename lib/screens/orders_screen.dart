@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/mixins/interactive_dialog_mixin.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -12,8 +13,11 @@ class OrdersScreen extends StatefulWidget {
   _OrdersScreenState createState() => _OrdersScreenState();
 }
 
-class _OrdersScreenState extends State<OrdersScreen> {
+class _OrdersScreenState extends State<OrdersScreen>
+    with InteractiveDialogMixin {
   var _isEmpty = false;
+  Orders _orders;
+  Future _ordersFuture;
 
   void _toggleIsEmpty(int ordersListLength) {
     setState(() {
@@ -25,18 +29,30 @@ class _OrdersScreenState extends State<OrdersScreen> {
     });
   }
 
+  Future _obtainOrdersFuture() {
+    final ordersData = Provider.of<Orders>(context, listen: false);
+    _orders = ordersData;
+    return ordersData.fetchAndSetOrders();
+  }
+
+  @override
+  void initState() {
+    _ordersFuture = _obtainOrdersFuture();
+    if (_orders != null) {
+      _toggleIsEmpty(_orders.ordersListLength);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final orderData = Provider.of<Orders>(context);
-    final orders = orderData.orders;
-
-    _toggleIsEmpty(orderData.ordersListLength);
+    // _toggleIsEmpty(orderData.ordersListLength);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Orders'),
       ),
-      body:  _isEmpty
+      body: _isEmpty
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -52,10 +68,30 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 ),
               ],
             )
-          :ListView.builder(
-        itemCount: orderData.ordersListLength,
-        itemBuilder: (ctx, i) => OrderItem(order: orders[i]),
-      ),
+          : FutureBuilder(
+              future: _ordersFuture,
+              builder: (ctx, dataSnapshot) {
+                if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  if (dataSnapshot.error != null) {
+                    // Do error handling
+                    return Center(
+                      child: Text('An error occured', style: kDescTextStyle),
+                    );
+                  } else {
+                    return Consumer<Orders>(
+                      builder: (ctx, orderData, child) => ListView.builder(
+                        itemCount: orderData.ordersListLength,
+                        itemBuilder: (ctx, i) => OrderItem(
+                          order: orderData.orders[i],
+                        ),
+                      ),
+                    );
+                  }
+                }
+              },
+            ),
     );
   }
 }

@@ -56,14 +56,18 @@ class _UserMealItemState extends State<UserMealItem>
                       Icons.delete,
                       size: 23,
                     ),
-                    // onPressed: () => Provider.of<Meals>(context, listen: false)
-                    //     .deleteMeal(widget.id),
-
                     onPressed: () {
-                      warningDialog(context, () {
-                        Provider.of<Meals>(context, listen: false)
-                            .deleteMeal(widget.id);
-                        Navigator.of(context).pop();
+                      warningDialog(context, () async {
+                        try {
+                          await Provider.of<Meals>(context, listen: false)
+                              .deleteMeal(widget.id);
+                          Navigator.of(context).pop();
+                        } catch (error) {
+                          errorDialog(context, () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          });
+                        }
                       });
                     },
                   ),

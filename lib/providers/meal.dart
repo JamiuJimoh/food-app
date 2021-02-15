@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Meal with ChangeNotifier {
+  static const serverUrl = 'https://matlyan-default-rtdb.firebaseio.com/';
+
   final String id;
   final String title;
   final String description;
@@ -34,8 +38,31 @@ class Meal with ChangeNotifier {
   //   categories = categoriesList;
   // }
 
-  void toggleFavoriteStatus() {
+  void _setFavoriteValue(bool newValue) {
+    isFavorite = newValue;
+    notifyListeners();
+  }
+
+  Future<void> toggleFavoriteStatus() async {
+    final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
+    final url = '$serverUrl/meals/$id.json';
+
+    try {
+      final response = await http.patch(
+        url,
+        body: json.encode({
+          'isFavorite': isFavorite,
+        }),
+      );
+      if (response.statusCode >= 400) {
+        _setFavoriteValue(oldStatus);
+      }
+    } catch (error) {
+      _setFavoriteValue(oldStatus);
+
+      throw error;
+    }
   }
 }

@@ -7,7 +7,7 @@ import '../constants.dart';
 import '../models/slider_model.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  static const String id = 'onboarding_screen';
+  static const id = 'onboarding_screen';
 
   @override
   _OnboardingState createState() => _OnboardingState();
@@ -29,7 +29,7 @@ class _OnboardingState extends State<OnboardingScreen> {
     if (_currentIndex != _slides.length - 1) {
       return Container(
         padding: EdgeInsets.only(bottom: 30.0, top: 10.0),
-        color: kScaffoldColor,
+        color: kScaffoldColor.withOpacity(1.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -70,7 +70,7 @@ class _OnboardingState extends State<OnboardingScreen> {
         label: 'Get Started',
         isCurved: false,
         onTap: () {
-          Navigator.pushNamed(context, LoginScreen.id);
+          Navigator.pushReplacementNamed(context, AuthScreen.id);
         },
       );
     }

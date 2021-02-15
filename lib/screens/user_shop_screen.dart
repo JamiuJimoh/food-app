@@ -8,6 +8,11 @@ import 'edit_user_meal_screen.dart';
 
 class UserShopScreen extends StatelessWidget {
   static const String id = 'user_products_screen';
+
+  Future<void> _refreshMeals(BuildContext ctx) async {
+    await Provider.of<Meals>(ctx, listen: false).fetchAndSetProduct();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context);
@@ -22,20 +27,23 @@ class UserShopScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: mealsData.mealsListLength,
-        itemBuilder: (ctx, i) => Column(
-          children: [
-            UserMealItem(
-              imageUrl: mealsData.items[i].imageUrl,
-              title: mealsData.items[i].title,
-              id: mealsData.items[i].id,
-            ),
-            const Divider(
-              thickness: 0.3,
-              color: kBorderColor,
-            ),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () => _refreshMeals(context),
+        child: ListView.builder(
+          itemCount: mealsData.mealsListLength,
+          itemBuilder: (ctx, i) => Column(
+            children: [
+              UserMealItem(
+                imageUrl: mealsData.items[i].imageUrl,
+                title: mealsData.items[i].title,
+                id: mealsData.items[i].id,
+              ),
+              const Divider(
+                thickness: 0.3,
+                color: kBorderColor,
+              ),
+            ],
+          ),
         ),
       ),
     );
