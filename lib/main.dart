@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Auth, Meals>(
           update: (ctx, auth, previousMeals) => Meals(
             auth.token,
+            auth.userId,
             previousMeals == null ? [] : previousMeals.items,
           ),
           create: null,
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Auth, Orders>(
           update: (ctx, auth, previousOrders) => Orders(
             auth.token,
+            auth.userId,
             previousOrders == null ? [] : previousOrders.orders,
           ),
           create: null,
@@ -38,7 +40,18 @@ class MyApp extends StatelessWidget {
           title: 'MatLyan',
           theme: AppTheme.primaryAppTheme,
           debugShowCheckedModeBanner: false,
-          home: auth.isAuth ? TabsScreen() : AuthScreen(),
+          // initialRoute: OnboardingScreen.id,
+          home: auth.isAuth //Are we authenticated?
+              ? TabsScreen() //if yes, show tabs screen.
+              : FutureBuilder(
+                  //if not, futurebuilder
+                  future: auth.tryAutoLogin(), //try autologin
+                  builder: (ctx, authResultSnapshot) => authResultSnapshot
+                              .connectionState ==
+                          ConnectionState.waiting
+                      ? SplashScreen() //while waiting for result, show splashScreen
+                      : OnboardingScreen(), //if done waiting, show this screen
+                ),
           routes: {
             OnboardingScreen.id: (context) => OnboardingScreen(),
             TabsScreen.id: (context) => TabsScreen(),

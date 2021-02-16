@@ -10,7 +10,9 @@ class Meals with ChangeNotifier {
   static const serverUrl = 'https://matlyan-default-rtdb.firebaseio.com/';
 
   final String authToken;
-  Meals(this.authToken, this._mealsList);
+  final String userId;
+
+  Meals(this.authToken, this.userId, this._mealsList);
 
   List<Meal> _mealsList = []; //MealsData().loadedMeals;
 
@@ -42,15 +44,25 @@ class Meals with ChangeNotifier {
     return _mealsList.firstWhere((meal) => meal.id == id);
   }
 
-  Future<void> fetchAndSetProduct() async {
-    final url = '$serverUrl/meals.json?auth=$authToken';
+  Future<void> fetchAndSetProduct([bool filterByUser = false]) async {
+    final filterString =
+        filterByUser ? 'orderBy="shopId"&equalTo="$userId"' : '';
+
+    var url = '$serverUrl/meals.json?auth=$authToken&$filterString';
+
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      final List<Meal> loadedMeals = [];
       if (extractedData == null) {
         return;
       }
+
+      // another request to get favorite user's meals
+      url = '$serverUrl/userFavorites/$userId.json?auth=$authToken';
+      final favoriteResponse = await http.get(url);
+      final favoriteData = json.decode(favoriteResponse.body);
+
+      final List<Meal> loadedMeals = [];
       extractedData.forEach((mealId, mealData) {
         loadedMeals.insert(
           0,
@@ -61,7 +73,8 @@ class Meals with ChangeNotifier {
             price: mealData['price'],
             timeToPrep: mealData['timeToPrep'],
             imageUrl: mealData['imageUrl'],
-            isFavorite: mealData['isFavorite'],
+            isFavorite:
+                favoriteData == null ? false : favoriteData[mealId] ?? false,
             distance: mealData['distance'],
             location: mealData['location'],
             vendorInfo: mealData['vendorInfo'],
@@ -86,10 +99,10 @@ class Meals with ChangeNotifier {
           'price': meal.price,
           'imageUrl': meal.imageUrl,
           'timeToPrep': meal.timeToPrep,
+          'shopId': userId,
           'vendorInfo': meal.vendorInfo,
           'distance': meal.distance,
           'location': meal.location,
-          'isFavorite': meal.isFavorite
         }),
       );
 

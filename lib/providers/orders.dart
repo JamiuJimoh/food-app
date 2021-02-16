@@ -23,7 +23,9 @@ class Orders with ChangeNotifier {
   static const serverUrl = 'https://matlyan-default-rtdb.firebaseio.com/';
 
   final String authToken;
-  Orders(this.authToken, this._orders);
+  final String userId;
+
+  Orders(this.authToken, this.userId, this._orders);
 
   List<OrderItem> _orders = [];
 
@@ -36,7 +38,7 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> fetchAndSetOrders() async {
-    final url = '$serverUrl/orders.json?auth=$authToken';
+    final url = '$serverUrl/orders/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<OrderItem> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -67,7 +69,7 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addOrder(List<CartItem> cartItems, double total) async {
-    final url = '$serverUrl/orders.json?auth=$authToken';
+    final url = '$serverUrl/orders/$userId.json?auth=$authToken';
     final timestamp = DateTime.now();
 
     try {

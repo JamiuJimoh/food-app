@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/screens/screens.dart';
 import 'package:provider/provider.dart';
 
 import '../mixins/interactive_dialog_mixin.dart';
@@ -49,6 +50,8 @@ class _AuthFormState extends State<AuthForm> with InteractiveDialogMixin {
   final _passwordController = TextEditingController();
 
   void _submit() async {
+    final authData = Provider.of<Auth>(context, listen: false);
+
     if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
@@ -60,12 +63,16 @@ class _AuthFormState extends State<AuthForm> with InteractiveDialogMixin {
     try {
       if (_authMode == AuthMode.Login) {
         // Log user in
-        await Provider.of<Auth>(context, listen: false)
-            .signin(_authData['email'], _authData['password']);
+        await authData.signin(_authData['email'], _authData['password']);
+        if (authData.isAuth) {
+          Navigator.of(context).pushReplacementNamed(TabsScreen.id);
+        }
       } else {
         // Sign user up
-        await Provider.of<Auth>(context, listen: false)
-            .signup(_authData['email'], _authData['password']);
+        await authData.signup(_authData['email'], _authData['password']);
+        if (authData.isAuth) {
+          Navigator.of(context).pushReplacementNamed(TabsScreen.id);
+        }
       }
     } on HttpException catch (error) {
       var errorMessage = 'Authentication failed.';

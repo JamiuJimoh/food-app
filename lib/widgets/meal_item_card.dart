@@ -63,7 +63,8 @@ class MealItemCard extends StatelessWidget {
                                   ? Icons.favorite
                                   : Icons.favorite_border),
                               onPressed: () {
-                                meal.toggleFavoriteStatus(authData.token);
+                                meal.toggleFavoriteStatus(
+                                    authData.token, authData.userId);
                               },
                             ),
                           ),

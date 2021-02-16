@@ -15,7 +15,7 @@ class FavoriteButtonIcon extends StatelessWidget {
       builder: (ctx, _, child) => IconButton(
         icon: Icon(meal.isFavorite ? Icons.favorite : Icons.favorite_border),
         onPressed: () {
-          meal.toggleFavoriteStatus(authData.token);
+          meal.toggleFavoriteStatus(authData.token, authData.userId);
         },
       ),
     );

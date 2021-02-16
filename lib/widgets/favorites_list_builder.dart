@@ -38,7 +38,7 @@ class FavoritesListBuilder extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
         ),
         onDismissed: (direction) {
-          favoriteMeals[index].toggleFavoriteStatus(authData.token);
+          favoriteMeals[index].toggleFavoriteStatus(authData.token, authData.userId);
           if (mealsData.favoriteMealsListLength < 1) {
             toggleIsEmpty();
           }

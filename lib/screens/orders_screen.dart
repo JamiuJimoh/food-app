@@ -16,30 +16,34 @@ class OrdersScreen extends StatefulWidget {
 class _OrdersScreenState extends State<OrdersScreen>
     with InteractiveDialogMixin {
   var _isEmpty = false;
-  Orders _orders;
+  // Orders _orders;
   Future _ordersFuture;
 
   void _toggleIsEmpty(int ordersListLength) {
-    setState(() {
-      if (ordersListLength > 0) {
+    if (ordersListLength > 0) {
+      setState(() {
         _isEmpty = false;
-      } else {
+      });
+    } else {
+      setState(() {
         _isEmpty = true;
-      }
-    });
+      });
+    }
   }
 
   Future _obtainOrdersFuture() {
     final ordersData = Provider.of<Orders>(context, listen: false);
-    _orders = ordersData;
+    // _orders = ordersData;
     return ordersData.fetchAndSetOrders();
   }
 
   @override
   void initState() {
+    final orders = Provider.of<Orders>(context, listen: false);
+
     _ordersFuture = _obtainOrdersFuture();
-    if (_orders != null) {
-      _toggleIsEmpty(_orders.ordersListLength);
+    if (orders != null) {
+      _toggleIsEmpty(orders.ordersListLength);
     }
     super.initState();
   }

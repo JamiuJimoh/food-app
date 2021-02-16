@@ -103,7 +103,7 @@ class _FavoriteIconButtonState extends State<FavoriteIconButton> {
           : Icons.favorite_border),
       onPressed: () {
         setState(() {
-          widget.loadedMeal.toggleFavoriteStatus(authData.token);
+          widget.loadedMeal.toggleFavoriteStatus(authData.token, authData.userId);
         });
       },
     );

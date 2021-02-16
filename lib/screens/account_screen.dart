@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/auth.dart';
 import '../constants.dart';
 import '../screens/screens.dart';
 
@@ -62,7 +64,10 @@ class AccountScreen extends StatelessWidget {
           ),
           _listItem(Icons.electric_moped, 'Deliver With MatLyan', () {}),
           _listItem(Icons.settings, 'Settings', () {}),
-          _listItem(Icons.logout, 'Log Out', () {}),
+          _listItem(Icons.logout, 'Log Out', () {
+            Provider.of<Auth>(context, listen: false).logout();
+            Navigator.of(context).pushReplacementNamed('/');
+          }),
         ],
       ),
     );
