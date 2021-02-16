@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/providers/meal.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/providers.dart';
 import '../constants.dart';
 import 'widgets.dart';
 
@@ -55,7 +56,7 @@ class ImageSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
             width: MediaQuery.of(context).size.width,
             height: 100.0,
             decoration: BoxDecoration(
-              gradient: kScaffoldColorGradient,
+              gradient: kOnboardImageGradient,
               // borderRadius: BorderRadius.only(
               //   topLeft: Radius.circular(40.0),
               //   topRight: Radius.circular(40.0),
@@ -95,13 +96,14 @@ class FavoriteIconButton extends StatefulWidget {
 class _FavoriteIconButtonState extends State<FavoriteIconButton> {
   @override
   Widget build(BuildContext context) {
+    final authData = Provider.of<Auth>(context, listen: false);
     return IconButton(
       icon: Icon(widget.loadedMeal.isFavorite
           ? Icons.favorite
           : Icons.favorite_border),
       onPressed: () {
         setState(() {
-          widget.loadedMeal.toggleFavoriteStatus();
+          widget.loadedMeal.toggleFavoriteStatus(authData.token);
         });
       },
     );

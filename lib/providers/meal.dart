@@ -43,11 +43,11 @@ class Meal with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleFavoriteStatus() async {
+  Future<void> toggleFavoriteStatus(String token) async {
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
-    final url = '$serverUrl/meals/$id.json';
+    final url = '$serverUrl/meals/$id.json?auth=$token';
 
     try {
       final response = await http.patch(

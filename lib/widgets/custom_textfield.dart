@@ -59,7 +59,7 @@ class CustomTextField extends StatelessWidget {
         maxLines: maxLines,
         decoration: InputDecoration(
           enabledBorder: _outlineInputBorder(kAccentColor),
-          contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          contentPadding: const EdgeInsets.all(15.0),
           labelText: label,
           labelStyle: kBodyTextStyle.copyWith(
             color: kFormLabelColor,

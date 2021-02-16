@@ -109,7 +109,7 @@ class _AuthFormState extends State<AuthForm> with InteractiveDialogMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(20.0),
+      margin: const EdgeInsets.all(8.0),
       child: Form(
         key: _formKey,
         child: SingleChildScrollView(

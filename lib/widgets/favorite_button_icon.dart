@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/providers/meal.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/providers.dart';
 
 class FavoriteButtonIcon extends StatelessWidget {
   final Meal meal;
@@ -8,11 +9,13 @@ class FavoriteButtonIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authData = Provider.of<Auth>(context, listen: false);
+
     return Consumer<Meal>(
       builder: (ctx, _, child) => IconButton(
         icon: Icon(meal.isFavorite ? Icons.favorite : Icons.favorite_border),
         onPressed: () {
-          meal.toggleFavoriteStatus();
+          meal.toggleFavoriteStatus(authData.token);
         },
       ),
     );

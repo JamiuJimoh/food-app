@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/meal_detail_screen.dart';
-import '../providers/meals.dart';
+import '../providers/providers.dart';
 import 'list_tile_card.dart';
 
 class FavoritesListBuilder extends StatelessWidget {
@@ -16,6 +16,8 @@ class FavoritesListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context, listen: false);
+    final authData = Provider.of<Auth>(context, listen: false);
+
     final favoriteMeals = mealsData.favoriteMeals;
     final favoriteMeal = favoriteMeals[index];
 
@@ -36,7 +38,7 @@ class FavoritesListBuilder extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
         ),
         onDismissed: (direction) {
-          favoriteMeals[index].toggleFavoriteStatus();
+          favoriteMeals[index].toggleFavoriteStatus(authData.token);
           if (mealsData.favoriteMealsListLength < 1) {
             toggleIsEmpty();
           }

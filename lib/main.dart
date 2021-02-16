@@ -25,8 +25,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
         ),
-        ChangeNotifierProvider(
-          create: (ctx) => Orders(),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+          update: (ctx, auth, previousOrders) => Orders(
+            auth.token,
+            previousOrders == null ? [] : previousOrders.orders,
+          ),
+          create: null,
         ),
       ],
       child: Consumer<Auth>(
@@ -36,8 +40,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: auth.isAuth ? TabsScreen() : AuthScreen(),
           routes: {
-            TabsScreen.id: (context) => TabsScreen(),
             OnboardingScreen.id: (context) => OnboardingScreen(),
+            TabsScreen.id: (context) => TabsScreen(),
             AuthScreen.id: (context) => AuthScreen(),
             MealsOverviewScreen.id: (context) => MealsOverviewScreen(),
             MealDetailScreen.id: (context) => MealDetailScreen(),

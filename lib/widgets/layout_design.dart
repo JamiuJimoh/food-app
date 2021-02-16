@@ -8,38 +8,40 @@ class LayoutDesign extends StatelessWidget {
   final Widget firstColumnChild;
   final int secondColumnFlex;
   final Widget secondColumnChild;
-  final Color secondColumnColor;
+  final Color firstColumnColor;
 
   LayoutDesign({
     @required this.firstColumnFlex,
     @required this.secondColumnFlex,
     @required this.firstColumnChild,
     @required this.secondColumnChild,
-    this.secondColumnColor,
+    this.firstColumnColor,
   });
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: firstColumnFlex,
-          child: firstColumnChild,
-        ),
-        Expanded(
-          flex: secondColumnFlex,
-          child: Container(
-            child: secondColumnChild,
-            decoration: BoxDecoration(
-              color: secondColumnColor ?? kSecondaryColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: firstColumnFlex,
+            child: Container(
+              child: firstColumnChild,
+              decoration: BoxDecoration(
+                color: firstColumnColor ?? kSecondaryColor,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(50.0),
+                  bottomRight: Radius.circular(50.0),
+                ),
               ),
             ),
           ),
-        ),
-      ],
+          Expanded(
+            flex: secondColumnFlex,
+            child: secondColumnChild,
+          ),
+        ],
+      ),
     );
   }
 }

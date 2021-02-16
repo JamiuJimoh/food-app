@@ -76,7 +76,7 @@ class Meals with ChangeNotifier {
   }
 
   Future<void> addMeal(Meal meal) async {
-    const url = '$serverUrl/meals.json';
+    final url = '$serverUrl/meals.json?auth=$authToken';
     try {
       final response = await http.post(
         url,
@@ -121,7 +121,7 @@ class Meals with ChangeNotifier {
     final mealIndex = _mealsList.indexWhere((meal) => meal.id == id);
     if (mealIndex >= 0) {
       try {
-        final url = '$serverUrl/meals/$id.json';
+        final url = '$serverUrl/meals/$id.json?auth=$authToken';
         await http.patch(url,
             body: json.encode({
               'title': newMeal.title,
@@ -143,7 +143,7 @@ class Meals with ChangeNotifier {
   }
 
   Future<void> deleteMeal(String id) async {
-    final url = '$serverUrl/meals/$id.json';
+    final url = '$serverUrl/meals/$id.json?auth=$authToken';
     final existingMealIndex = _mealsList.indexWhere((meal) => meal.id == id);
     var existingMeal = _mealsList[existingMealIndex];
 

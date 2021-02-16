@@ -19,8 +19,11 @@ class SliderTile extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Stack(
-              children: <Widget>[
+              children: [
                 Container(
+                  // margin: const EdgeInsets.all(40.0),
+                  // padding: const EdgeInsets.all(40.0),
+                  // color: Colors.white,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(imageName),
@@ -35,6 +38,7 @@ class SliderTile extends StatelessWidget {
                 ),
               ],
             ),
+            
           ),
           Expanded(
             child: Padding(
@@ -56,7 +60,7 @@ class SliderTile extends StatelessWidget {
                     flex: 2,
                     child: Text(
                       desc,
-                      style: kDescTextStyle,
+                      style: kDescTextStyle.copyWith(fontSize: 20.0),
                       textAlign: TextAlign.center,
                     ),
                   ),

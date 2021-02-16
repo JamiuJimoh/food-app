@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
 import 'cart.dart';
@@ -23,6 +22,9 @@ class OrderItem {
 class Orders with ChangeNotifier {
   static const serverUrl = 'https://matlyan-default-rtdb.firebaseio.com/';
 
+  final String authToken;
+  Orders(this.authToken, this._orders);
+
   List<OrderItem> _orders = [];
 
   List<OrderItem> get orders {
@@ -34,7 +36,7 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> fetchAndSetOrders() async {
-    const url = '$serverUrl/orders.json';
+    final url = '$serverUrl/orders.json?auth=$authToken';
     final response = await http.get(url);
     final List<OrderItem> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -65,7 +67,7 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addOrder(List<CartItem> cartItems, double total) async {
-    const url = '$serverUrl/orders.json';
+    final url = '$serverUrl/orders.json?auth=$authToken';
     final timestamp = DateTime.now();
 
     try {

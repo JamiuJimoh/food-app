@@ -29,14 +29,10 @@ const kOnboardButtonTextStyle = TextStyle(
   fontWeight: FontWeight.w200,
 );
 
-const kScaffoldColorGradient = LinearGradient(
-  colors: [kScaffoldColor, Color(0x00111328)],
-  begin: Alignment.bottomCenter,
-  end: Alignment.center,
-);
 
-const kOnboardImageGradient = LinearGradient(
-  colors: [kScaffoldColor, Color(0x00111328)],
+
+final kOnboardImageGradient = LinearGradient(
+  colors: [kScaffoldColor.withOpacity(1.0), Colors.transparent],
   begin: Alignment.bottomCenter,
   end: Alignment.center,
 );

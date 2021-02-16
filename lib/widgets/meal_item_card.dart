@@ -18,6 +18,7 @@ class MealItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final meal = Provider.of<Meal>(context, listen: false);
+    final authData = Provider.of<Auth>(context, listen: false);
 
     return BorderedContainer(
       childWidget: Container(
@@ -62,7 +63,7 @@ class MealItemCard extends StatelessWidget {
                                   ? Icons.favorite
                                   : Icons.favorite_border),
                               onPressed: () {
-                                meal.toggleFavoriteStatus();
+                                meal.toggleFavoriteStatus(authData.token);
                               },
                             ),
                           ),
