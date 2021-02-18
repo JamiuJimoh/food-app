@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../mixins/interactive_dialog_mixin.dart';
+import '../mixins/mixins.dart';
 import '../constants.dart';
 import '../providers/providers.dart';
 import '../widgets/widgets.dart';
@@ -15,12 +15,13 @@ class MealsOverviewScreen extends StatefulWidget {
 }
 
 class _MealsOverviewScreenState extends State<MealsOverviewScreen>
-    with InteractiveDialogMixin {
+    with InteractiveDialogMixin, AppBarMixin {
   var _isInit = true;
   var _isLoading = true;
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     if (_isInit) {
       _isLoading = true;
 
@@ -42,12 +43,12 @@ class _MealsOverviewScreenState extends State<MealsOverviewScreen>
       });
     }
     _isInit = false;
-    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context, listen: false);
+    print('rebuild');
 
     return Scaffold(
       body: _isLoading
@@ -55,12 +56,13 @@ class _MealsOverviewScreenState extends State<MealsOverviewScreen>
           : CustomScrollView(
               slivers: [
                 SliverAppBar(
+                  bottom: bottomBorder(),
                   title: Text(
                     'Meals',
                   ),
                   centerTitle: false,
+                  pinned: true,
                   floating: true,
-                  // pinned: true,
                   actions: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),

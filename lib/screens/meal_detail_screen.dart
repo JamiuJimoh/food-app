@@ -58,31 +58,6 @@ class _MealDetailScreenState extends State<MealDetailScreen>
                 left: 15.0,
                 bottom: 15.0,
               ),
-
-              // /////////////
-              // decoration: BoxDecoration(
-              //   color: kScaffoldColor,
-              //   borderRadius: BorderRadius.only(
-              //     topLeft: Radius.circular(40.0),
-              //     topRight: Radius.circular(40.0),
-              //   ),
-              // ),
-
-              //      SliverToBoxAdapter(
-              //   child: Stack(
-              //     children: [
-              //       Positioned(
-              //         top: 50.0,
-              //         child: Container(
-              //           color: kScaffoldColor,
-              //           width: double.infinity,
-              //           height: 100.0,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

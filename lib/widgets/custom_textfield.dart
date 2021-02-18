@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final Function(String) validator;
   final String initialValue;
   final bool isEnabled;
+  final bool isAuthTextField;
 
   const CustomTextField({
     @required this.label,
@@ -31,12 +32,13 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.initialValue,
     this.isEnabled,
+    this.isAuthTextField = false,
   });
 
   OutlineInputBorder _outlineInputBorder(Color color) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.all(
-        Radius.circular(5.0),
+        Radius.circular(isAuthTextField ? 50.0 : 5.0),
       ),
       borderSide: BorderSide(color: color),
     );
@@ -59,7 +61,7 @@ class CustomTextField extends StatelessWidget {
         maxLines: maxLines,
         decoration: InputDecoration(
           enabledBorder: _outlineInputBorder(kAccentColor),
-          contentPadding: const EdgeInsets.all(15.0),
+          contentPadding: const EdgeInsets.all(19.0),
           labelText: label,
           labelStyle: kBodyTextStyle.copyWith(
             color: kFormLabelColor,

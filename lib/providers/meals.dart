@@ -52,6 +52,7 @@ class Meals with ChangeNotifier {
 
     try {
       final response = await http.get(url);
+      print('sending requests');
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
         return;

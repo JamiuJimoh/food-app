@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'constants.dart';
 
@@ -12,10 +13,10 @@ class AppTheme {
 
   static final ThemeData primaryAppTheme = ThemeData(
     scaffoldBackgroundColor: _primaryColor,
+    // accentColorBrightness: Brightness.dark,
     appBarTheme: AppBarTheme(
-      color: _primaryColor,
+      backgroundColor: kScaffoldColor,
       iconTheme: IconThemeData(color: _textColor),
-      elevation: 3.5,
     ),
     unselectedWidgetColor: kAccentColor,
     accentColor: _accentColor,

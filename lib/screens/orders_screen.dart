@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/mixins/interactive_dialog_mixin.dart';
 import 'package:provider/provider.dart';
 
+import '../mixins/mixins.dart';
 import '../constants.dart';
 import '../providers/orders.dart' show Orders;
 import '../widgets/order_item.dart';
@@ -14,24 +14,12 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen>
-    with InteractiveDialogMixin {
+    with InteractiveDialogMixin, AppBarMixin {
   var _isEmpty = false;
   // Orders _orders;
   Future _ordersFuture;
 
-  void _toggleIsEmpty(int ordersListLength) {
-    if (ordersListLength > 0) {
-      setState(() {
-        _isEmpty = false;
-      });
-    } else {
-      setState(() {
-        _isEmpty = true;
-      });
-    }
-  }
-
-  Future _obtainOrdersFuture() {
+  Future<void> _obtainOrdersFuture() {
     final ordersData = Provider.of<Orders>(context, listen: false);
     // _orders = ordersData;
     return ordersData.fetchAndSetOrders();
@@ -41,10 +29,17 @@ class _OrdersScreenState extends State<OrdersScreen>
   void initState() {
     final orders = Provider.of<Orders>(context, listen: false);
 
-    _ordersFuture = _obtainOrdersFuture();
-    if (orders != null) {
-      _toggleIsEmpty(orders.ordersListLength);
-    }
+    _ordersFuture = _obtainOrdersFuture().then((_) {
+      if (orders != null) {
+        setState(() {
+          _isEmpty = false;
+        });
+      } else {
+        setState(() {
+          _isEmpty = true;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -55,6 +50,7 @@ class _OrdersScreenState extends State<OrdersScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text('Orders'),
+        bottom: bottomBorder(),
       ),
       body: _isEmpty
           ? Column(

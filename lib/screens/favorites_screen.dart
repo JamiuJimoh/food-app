@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../mixins/appbar_mixin.dart';
 import '../constants.dart';
 import '../providers/providers.dart';
 import '../widgets/favorites_list_builder.dart';
@@ -10,7 +11,7 @@ class FavoritesScreen extends StatefulWidget {
   _FavoritesScreenState createState() => _FavoritesScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class _FavoritesScreenState extends State<FavoritesScreen> with AppBarMixin {
   var _isEmpty = false;
 
   void _toggleIsEmpty(int favMealsListLength) {
@@ -26,14 +27,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context, listen: false);
+    print('rebuild fav');
     // final favoriteMeals = mealsData.favoriteMeals;
 
     _toggleIsEmpty(mealsData.favoriteMealsListLength);
 
-    print(_isEmpty);
     return Scaffold(
       appBar: AppBar(
         title: Text('favorites'),
+        bottom: bottomBorder(),
       ),
       body: _isEmpty
           ? Column(
@@ -51,15 +53,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 ),
               ],
             )
-          : ListView.builder(
-              itemCount: mealsData.favoriteMealsListLength,
-              itemBuilder: (ctx, i) {
-                return FavoritesListBuilder(
-                  index: i,
-                  toggleIsEmpty: () =>
-                      _toggleIsEmpty(mealsData.favoriteMealsListLength),
-                );
-              },
+          : Padding(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: ListView.builder(
+                itemCount: mealsData.favoriteMealsListLength,
+                itemBuilder: (ctx, i) {
+                  return FavoritesListBuilder(
+                    index: i,
+                    toggleIsEmpty: () =>
+                        _toggleIsEmpty(mealsData.favoriteMealsListLength),
+                  );
+                },
+              ),
             ),
     );
   }

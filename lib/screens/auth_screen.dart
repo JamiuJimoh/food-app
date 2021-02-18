@@ -123,6 +123,7 @@ class _AuthFormState extends State<AuthForm> with InteractiveDialogMixin {
           child: Column(
             children: [
               CustomTextField(
+                isAuthTextField: true,
                 label: 'E-mail',
                 textInputType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
@@ -138,6 +139,7 @@ class _AuthFormState extends State<AuthForm> with InteractiveDialogMixin {
                 },
               ),
               CustomTextField(
+                isAuthTextField: true,
                 label: 'Password',
                 controller: _passwordController,
                 textInputType: TextInputType.visiblePassword,
@@ -159,6 +161,7 @@ class _AuthFormState extends State<AuthForm> with InteractiveDialogMixin {
               ),
               if (_authMode == AuthMode.Signup)
                 CustomTextField(
+                  isAuthTextField: true,
                   label: 'Confirm Password',
                   isEnabled: _authMode == AuthMode.Signup,
                   maxLines: 1,
