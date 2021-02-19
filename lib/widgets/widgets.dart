@@ -16,3 +16,4 @@ export 'order_item.dart';
 export 'custom_dialog.dart';
 export 'user_meal_item.dart';
 export 'layout_design.dart';
+export 'location_bar.dart';

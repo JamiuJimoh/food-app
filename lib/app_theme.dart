@@ -15,8 +15,8 @@ class AppTheme {
     scaffoldBackgroundColor: _primaryColor,
     // accentColorBrightness: Brightness.dark,
     appBarTheme: AppBarTheme(
-      backgroundColor: kScaffoldColor,
-      iconTheme: IconThemeData(color: _textColor),
+      backgroundColor: _primaryColor,
+      iconTheme: IconThemeData(color: _iconColor),
     ),
     unselectedWidgetColor: kAccentColor,
     accentColor: _accentColor,

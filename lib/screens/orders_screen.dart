@@ -25,28 +25,28 @@ class _OrdersScreenState extends State<OrdersScreen>
     return ordersData.fetchAndSetOrders();
   }
 
+  void _toggleIsEmpty(int ordersListLength) {
+    if (ordersListLength < 1) {
+      setState(() {
+        _isEmpty = true;
+      });
+    } else {
+      _isEmpty = false;
+    }
+  }
+
   @override
   void initState() {
     final orders = Provider.of<Orders>(context, listen: false);
 
-    _ordersFuture = _obtainOrdersFuture().then((_) {
-      if (orders != null) {
-        setState(() {
-          _isEmpty = false;
-        });
-      } else {
-        setState(() {
-          _isEmpty = true;
-        });
-      }
-    });
+    _ordersFuture = _obtainOrdersFuture();
+    _toggleIsEmpty(orders.ordersListLength);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // _toggleIsEmpty(orderData.ordersListLength);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Orders'),

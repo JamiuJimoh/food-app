@@ -57,12 +57,13 @@ class _MealsOverviewScreenState extends State<MealsOverviewScreen>
               slivers: [
                 SliverAppBar(
                   bottom: bottomBorder(),
-                  title: Text(
-                    'Meals',
-                  ),
-                  centerTitle: false,
                   pinned: true,
                   floating: true,
+                  title: LocationBar(),
+                  leading: Icon(
+                    Icons.food_bank_rounded,
+                  ),
+                  centerTitle: false,
                   actions: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),

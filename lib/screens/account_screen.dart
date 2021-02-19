@@ -66,7 +66,7 @@ class AccountScreen extends StatelessWidget {
           _listItem(Icons.settings, 'Settings', () {}),
           _listItem(Icons.logout, 'Log Out', () {
             Provider.of<Auth>(context, listen: false).logout();
-            Navigator.of(context).pushReplacementNamed('/');
+            Navigator.of(context).pushReplacementNamed(AuthScreen.id);
           }),
         ],
       ),
