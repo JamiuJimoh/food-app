@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.food_delivery">
+
    <application
-        android:label="food_delivery"
+        android:label="MatLyan"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCzH5Us3CoqaqmACXX09pEg56s2VlhjTdQ"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

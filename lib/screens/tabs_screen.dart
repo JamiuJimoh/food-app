@@ -39,6 +39,10 @@ class _TabsScreenState extends State<TabsScreen> {
           //   title: Text('Meals'),
           // ),
 
+          // body: IndexedStack(
+          //   index: _selectedPageIndex,
+          //   children: _pages,
+          // ),
           body: _pages[_selectedPageIndex],
           bottomNavigationBar: BottomNavigationBar(
             onTap: _selectPage,

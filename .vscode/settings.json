@@ -3,6 +3,9 @@
         "Lyan",
         "autologin",
         "curr",
+        "draggable",
+        "fetchand",
+        "geolocator",
         "multiline",
         "signin",
         "textfield"

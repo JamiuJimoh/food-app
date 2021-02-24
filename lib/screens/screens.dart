@@ -10,3 +10,5 @@ export 'cart_screen.dart';
 export 'user_shop_screen.dart';
 export 'edit_user_meal_screen.dart';
 export 'splash_screen.dart';
+export 'map_screen.dart';
+export 'location_screen.dart';

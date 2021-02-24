@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/providers/user_location.dart';
 import 'package:provider/provider.dart';
 
 import 'app_theme.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
           ),
           create: null,
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => UserLocation(),
+        ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
@@ -62,6 +66,7 @@ class MyApp extends StatelessWidget {
             OrdersScreen.id: (context) => OrdersScreen(),
             UserShopScreen.id: (context) => UserShopScreen(),
             EditUserMealScreen.id: (context) => EditUserMealScreen(),
+            LocationScreen.id: (context) => LocationScreen(),
           },
         ),
       ),

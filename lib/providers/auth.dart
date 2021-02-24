@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_exception.dart';
@@ -29,6 +30,8 @@ class Auth with ChangeNotifier {
   String get userId {
     return _userId;
   }
+
+  
 
   Future<void> _authenticate(
     String email,

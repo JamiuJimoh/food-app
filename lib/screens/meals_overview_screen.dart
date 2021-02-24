@@ -46,6 +46,12 @@ class _MealsOverviewScreenState extends State<MealsOverviewScreen>
   }
 
   @override
+  void deactivate() {
+    super.deactivate();
+    print('deactivate called');
+  }
+
+  @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context, listen: false);
     print('rebuild');
@@ -59,7 +65,7 @@ class _MealsOverviewScreenState extends State<MealsOverviewScreen>
                   bottom: bottomBorder(),
                   pinned: true,
                   floating: true,
-                  title: LocationBar(),
+                  title: LocationInput(),
                   leading: Icon(
                     Icons.food_bank_rounded,
                   ),
