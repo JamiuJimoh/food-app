@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/providers/user_location.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:provider/provider.dart';
 
 import 'app_theme.dart';
 import 'providers/providers.dart';
 import 'screens/screens.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

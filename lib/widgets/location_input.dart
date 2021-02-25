@@ -12,6 +12,7 @@ import 'location_bar.dart';
 class LocationInput extends StatelessWidget {
   PlaceLocation getInitialLocation(UserLocation locData) {
     if (locData.permissionStatus == PermissionStatus.granted) {
+
       return locData.initialLocation;
     } else {
       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -21,7 +22,7 @@ class LocationInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locData = Provider.of<UserLocation>(context);
+    final locData = Provider.of<UserLocation>(context, listen: false);
     getInitialLocation(locData);
     PlaceLocation userLocation = locData.initialLocation;
 

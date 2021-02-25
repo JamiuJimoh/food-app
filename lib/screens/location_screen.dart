@@ -13,7 +13,7 @@ class LocationScreen extends StatelessWidget {
   Future<void> _selectOnMap(BuildContext ctx) async {
     await Navigator.of(ctx).push<LatLng>(
       MaterialPageRoute(
-        fullscreenDialog: true,
+        // fullscreenDialog: true,
         builder: (ctx) => MapScreen(isSelecting: true),
       ),
     );
@@ -27,7 +27,8 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locData = Provider.of<UserLocation>(context, listen: false);
+    final locData = Provider.of<UserLocation>(context);
+    final userLocations = locData.userLocations;
     print('=====================');
     printLoc(locData);
     print('=====================');
@@ -36,37 +37,42 @@ class LocationScreen extends StatelessWidget {
       child: Scaffold(
         body: LayoutDesign(
           firstColumnFlex: 4,
-          firstColumnChild: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: LocationBar(
-                    onBarTapped: () {},
-                    userLocation: Consumer<UserLocation>(
-                      builder: (ctx, userLocation, child) => Text(
-                        userLocation.initialLocation.address,
-                        style: kSubtitleTextStyle,
-                      ),
+          firstColumnChild: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: LocationBar(
+                  onBarTapped: () {},
+                  userLocation: Text(
+                    locData.initialLocation.address,
+                    style: kSubtitleTextStyle,
+                  ),
+                ),
+              ),
+              Divider(
+                height: 0.5,
+                color: kBorderColor,
+                thickness: 0.5,
+              ),
+              const SizedBox(height: 40.0),
+              Text(
+                'Saved Address',
+                style: kTitleTextStyle,
+                textAlign: TextAlign.left,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ListView.builder(
+                    itemCount: userLocations.length,
+                    itemBuilder: (ctx, i) => ListTile(
+                      title: Text(userLocations.elementAt(i).address),
+                      trailing: Icon(Icons.check),
                     ),
                   ),
                 ),
-                const SizedBox(height: 20.0),
-                Expanded(
-                  child: Consumer<UserLocation>(
-                    builder: (ctx, userLocation, child) => ListView.builder(
-                      itemCount: userLocation.userLocations.length,
-                      itemBuilder: (ctx, i) => ListTile(
-                        title: Text(
-                            userLocation.userLocations.elementAt(i).address),
-                        trailing: Icon(Icons.check),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           secondColumnFlex: 1,
           secondColumnChild: Align(

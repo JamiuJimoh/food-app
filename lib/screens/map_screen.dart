@@ -29,14 +29,21 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
-  Future<String> getPickedAddress(LatLng position) async {
-    _address = await LocationHelper.getPlaceAddress(
+  Future<void> getPickedAddress(LatLng position) async {
+    final newAddress = await LocationHelper.getPlaceAddress(
       position.latitude,
       position.longitude,
     );
+    setState(() {
+      _address = newAddress;
+    });
   }
 
   Future<void> addPickedLocation(UserLocation locData) async {
+    print('_pickedLocation.latitude');
+    print(_pickedLocation.latitude);
+    print('_pickedLocation.longitude');
+    print(_pickedLocation.longitude);
     await locData.addLocation(
         _pickedLocation.latitude, _pickedLocation.longitude);
     Navigator.of(context).pop();

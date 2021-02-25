@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/providers/user_location.dart';
 import 'package:provider/provider.dart';
 
 import '../mixins/mixins.dart';
@@ -54,6 +55,7 @@ class _MealsOverviewScreenState extends State<MealsOverviewScreen>
   @override
   Widget build(BuildContext context) {
     final mealsData = Provider.of<Meals>(context, listen: false);
+
     print('rebuild');
 
     return Scaffold(

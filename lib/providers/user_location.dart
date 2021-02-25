@@ -54,6 +54,7 @@ class UserLocation with ChangeNotifier {
     }
   }
 
+
   Future<void> addLocation(lat, lng) async {
     String _address = await LocationHelper.getPlaceAddress(
       lat,
@@ -65,6 +66,7 @@ class UserLocation with ChangeNotifier {
       address: _address,
     );
     _userLocations.add(addedLocation);
+    notifyListeners();
   }
 
   PermissionStatus get permissionStatus {
