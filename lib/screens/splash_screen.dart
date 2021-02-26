@@ -5,10 +5,14 @@ import '../constants.dart';
 import '../providers/user_location.dart';
 
 class SplashScreen extends StatelessWidget {
+  Future<void> callFetchandSetUserLoc(UserLocation locData) async {
+    await locData.fetchandSetUserCurrentLocation();
+  }
+
   @override
   Widget build(BuildContext context) {
     final locData = Provider.of<UserLocation>(context, listen: false);
-    locData.fetchandSetUserCurrentLocation();
+    callFetchandSetUserLoc(locData);
 
     return Scaffold(
       body: Center(

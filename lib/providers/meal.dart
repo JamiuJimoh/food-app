@@ -33,11 +33,7 @@ class Meal with ChangeNotifier {
     this.reviews = 0,
     this.isFavorite = false,
   });
-
-  // void set mealCategories(List<Category> categoriesList) {
-  //   categories = categoriesList;
-  // }
-
+  
   void _setFavoriteValue(bool newValue) {
     isFavorite = newValue;
     notifyListeners();

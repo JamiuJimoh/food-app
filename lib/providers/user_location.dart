@@ -41,6 +41,7 @@ class UserLocation with ChangeNotifier {
         locData.longitude,
       );
       final userLocation = PlaceLocation(
+        id: '${locData.latitude}${locData.longitude}',
         latitude: locData.latitude,
         longitude: locData.longitude,
         address: _address,
@@ -54,13 +55,13 @@ class UserLocation with ChangeNotifier {
     }
   }
 
-
   Future<void> addLocation(lat, lng) async {
     String _address = await LocationHelper.getPlaceAddress(
       lat,
       lng,
     );
     final addedLocation = PlaceLocation(
+      id: '${lat}${lng}',
       latitude: lat,
       longitude: lng,
       address: _address,
@@ -78,5 +79,17 @@ class UserLocation with ChangeNotifier {
       return _userLocations.first;
     }
     return null;
+  }
+
+  void selectUserDeliveryAddress(String id) {
+    _userLocations.forEach((location) {
+      if (location.id == id) {
+        location.isDeliveryAddress = true;
+        notifyListeners();
+      } else {
+        location.isDeliveryAddress = false;
+        notifyListeners();
+      }
+    });
   }
 }

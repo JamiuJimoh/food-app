@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/models/place.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +18,6 @@ class LocationScreen extends StatelessWidget {
         builder: (ctx) => MapScreen(isSelecting: true),
       ),
     );
-
-    // print(selectedLocation.latitude);
   }
 
   void printLoc(UserLocation locData) {
@@ -49,25 +48,43 @@ class LocationScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(
+              const Divider(
                 height: 0.5,
                 color: kBorderColor,
                 thickness: 0.5,
               ),
               const SizedBox(height: 40.0),
-              Text(
-                'Saved Address',
-                style: kTitleTextStyle,
-                textAlign: TextAlign.left,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Saved Address',
+                      style: kTitleTextStyle,
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      'Pick delivery address',
+                      style: kDescTextStyle,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(height: 20.0),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ListView.builder(
                     itemCount: userLocations.length,
-                    itemBuilder: (ctx, i) => ListTile(
-                      title: Text(userLocations.elementAt(i).address),
-                      trailing: Icon(Icons.check),
+                    itemBuilder: (ctx, i) => AddressListCard(
+                      address: userLocations.elementAt(i).address,
+                      onCardTapped: () => locData.selectUserDeliveryAddress(
+                        userLocations.elementAt(i).id,
+                      ),
+                      isDeliveryAddress:
+                          userLocations.elementAt(i).isDeliveryAddress,
                     ),
                   ),
                 ),
@@ -78,7 +95,7 @@ class LocationScreen extends StatelessWidget {
           secondColumnChild: Align(
             alignment: Alignment.center,
             child: ElevatedButton(
-              child: Text('Select From Map'),
+              child: Text('Select Address From Map'),
               onPressed: () => _selectOnMap(context),
               style: ElevatedButton.styleFrom(
                 primary: kAccentColor3,
@@ -87,6 +104,54 @@ class LocationScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AddressListCard extends StatelessWidget {
+  final String address;
+  final bool isDeliveryAddress;
+  final Function onCardTapped;
+  const AddressListCard({
+    @required this.address,
+    @required this.onCardTapped,
+    @required this.isDeliveryAddress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 7.0),
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: onCardTapped,
+            child: ListTile(
+              leading: Icon(
+                isDeliveryAddress ? Icons.home : Icons.not_interested,
+                color: isDeliveryAddress ? kAccentColor3 : kBorderColor,
+              ),
+              title: Text(
+                address,
+                style: kSubtitleTextStyle,
+              ),
+              trailing: !isDeliveryAddress
+                  ? null
+                  : Icon(
+                      Icons.check,
+                      color: kAccentColor3,
+                    ),
+            ),
+          ),
+          const Divider(
+            height: 0.5,
+            color: kBorderColor,
+            thickness: 0.5,
+            indent: 13.0,
+            endIndent: 13.0,
+          ),
+        ],
       ),
     );
   }
